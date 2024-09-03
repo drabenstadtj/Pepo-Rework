@@ -3,37 +3,36 @@ from app.services.user_service import UserService
 import jwt
 import datetime
 from functools import wraps
+import logging
 
 # Create a Blueprint for authentication-related routes
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+logger = logging.getLogger(__name__)
 
 # Decorator to ensure a valid JWT token is present in the request header
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        # Retrieve the token from the Authorization header
         token = request.headers.get('Authorization')
         if not token:
+            logger.warning("Token is missing from the request.")
             return jsonify({'message': 'Token is missing!'}), 403
 
         try:
-            # Extract the token by splitting the 'Bearer <token>' format
             token = token.split()[1]
-            # Decode the token using the application's secret key
             data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=["HS256"])
-            # Extract the user ID from the decoded token
             user_id = data['user_id']
+            logger.info(f"Token successfully decoded for user_id: {user_id}")
         except jwt.ExpiredSignatureError:
-            # Handle expired token
+            logger.warning("Token has expired.")
             return jsonify({'message': 'Token has expired!'}), 403
         except jwt.InvalidTokenError:
-            # Handle invalid token
+            logger.warning("Invalid token provided.")
             return jsonify({'message': 'Token is invalid!'}), 403
-        except Exception:
-            # Handle any other token verification errors
+        except Exception as e:
+            logger.error(f"Token verification failed: {e}")
             return jsonify({'message': 'Token verification failed!'}), 403
 
-        # If the token is valid, proceed with the request and pass the user_id to the wrapped function
         return f(user_id, *args, **kwargs)
 
     return decorated
@@ -41,42 +40,47 @@ def token_required(f):
 # Route to verify user credentials and issue a JWT token
 @bp.route('/verify_credentials', methods=['POST'])
 def verify_credentials():
-    # Get the JSON data from the request body
     data = request.get_json()
-    # Verify the user credentials using the UserService
+    logger.info(f"Verifying credentials for username: {data.get('username')}")
+    
     user_id = UserService.verify_credentials(data)
     if user_id:
-        # If credentials are valid, generate a JWT token valid for 24 hours
         token = jwt.encode({
             'user_id': str(user_id),
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
         }, current_app.config['SECRET_KEY'], algorithm="HS256")
-        # Return the generated token in the response
+        
+        logger.info(f"Credentials verified for user_id: {user_id}. Token generated.")
         return jsonify({"message": "Credentials verified", "token": token}), 200
     else:
-        # Return an error message if credentials are invalid
+        logger.warning(f"Invalid credentials provided for username: {data.get('username')}")
         return jsonify({"error": "Invalid username or password"}), 401
 
 # Route to register a new user
 @bp.route('/register', methods=['POST'])
 def register():
-    # Get the JSON data from the request body
     data = request.get_json()
-    # Register the new user using the UserService and return the result
+    logger.info(f"Attempting to register new user with username: {data.get('username')}")
+    
     result = UserService.register_user(data)
+    if "message" in result and result["message"] == "User registered successfully":
+        logger.info(f"User {data.get('username')} registered successfully.")
+    else:
+        logger.error(f"Failed to register user {data.get('username')}.")
+        
     return jsonify(result)
 
 # Route to get the user ID by username, requires a valid JWT token
 @bp.route('/get_user_id', methods=['GET'])
 @token_required
 def get_user_id(current_user):
-    # Get the username from the request query parameters
     username = request.args.get('username')
-    # Retrieve the user ID associated with the given username
+    logger.info(f"Fetching user ID for username: {username}")
+
     user_id = UserService.get_user_id(username)
     if user_id:
-        # Return the user ID if found
+        logger.info(f"User ID for username {username} is {user_id}.")
         return jsonify({"_id": str(user_id)}), 200
     else:
-        # Return an error message if the user is not found
+        logger.warning(f"User {username} not found.")
         return jsonify({"error": "User not found"}), 404

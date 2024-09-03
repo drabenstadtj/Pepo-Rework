@@ -23,7 +23,12 @@ def get_leaderboard():
         logger.info("Fetching the current leaderboard")
         # Retrieve the leaderboard from the service
         leaderboard = LeaderboardService.get_leaderboard()
-        logger.info("Successfully fetched the leaderboard")
+        
+        if not leaderboard:
+            logger.warning("Leaderboard data is empty")
+        else:
+            logger.info("Successfully fetched the leaderboard")
+        
         return jsonify(leaderboard)
     except Exception as e:
         logger.error(f"Error fetching the leaderboard: {e}")

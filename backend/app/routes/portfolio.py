@@ -3,6 +3,10 @@ from app.services.user_service import UserService
 import jwt
 from functools import wraps
 import os
+import logging
+
+# Initialize the logger
+logger = logging.getLogger(__name__)
 
 # Create a Blueprint for portfolio-related routes
 bp = Blueprint('portfolio', __name__, url_prefix='/portfolio')
@@ -18,17 +22,22 @@ def token_required(f):
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization')
         if not token:
+            logger.warning("Token is missing from the request.")
             return jsonify({'message': 'Token is missing!'}), 403
 
         try:
             token = token.split()[1]  # Extract token from 'Bearer <token>' format
             data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
             user_id = data['user_id']
+            logger.info(f"Token successfully decoded for user_id: {user_id}")
         except jwt.ExpiredSignatureError:
+            logger.warning("Token has expired.")
             return jsonify({'message': 'Token has expired!'}), 403
         except jwt.InvalidTokenError:
+            logger.warning("Invalid token provided.")
             return jsonify({'message': 'Token is invalid!'}), 403
-        except Exception:
+        except Exception as e:
+            logger.error(f"Token verification failed: {e}")
             return jsonify({'message': 'Token verification failed!'}), 403
 
         return f(user_id, *args, **kwargs)
@@ -45,9 +54,12 @@ def get_portfolio(user_id):
     Returns the user's portfolio if the user is found.
     """
     try:
+        logger.info(f"Fetching portfolio for user_id: {user_id}")
         portfolio = UserService.get_portfolio(user_id)
+        logger.info(f"Successfully fetched portfolio for user_id: {user_id}")
         return jsonify(portfolio), 200, {'Content-Type': 'application/json'}
     except Exception as e:
+        logger.error(f"Error fetching portfolio for user_id {user_id}: {e}")
         return jsonify({'error': str(e)}), 500, {'Content-Type': 'application/json'}
 
 @bp.route('/balance', methods=['GET'])
@@ -60,9 +72,12 @@ def get_balance(user_id):
     Returns the user's balance if the user is found.
     """
     try:
+        logger.info(f"Fetching balance for user_id: {user_id}")
         balance = UserService.get_balance(user_id)
+        logger.info(f"Successfully fetched balance for user_id: {user_id}")
         return jsonify(balance), 200, {'Content-Type': 'application/json'}
     except Exception as e:
+        logger.error(f"Error fetching balance for user_id {user_id}: {e}")
         return jsonify({'error': str(e)}), 500, {'Content-Type': 'application/json'}
 
 @bp.route('/assets_value', methods=['GET'])
@@ -75,7 +90,10 @@ def get_assets_value(user_id):
     Returns the user's assets value if the user is found.
     """
     try:
+        logger.info(f"Fetching assets value for user_id: {user_id}")
         assets_value = UserService.get_assets_value(user_id)
+        logger.info(f"Successfully fetched assets value for user_id: {user_id}")
         return jsonify(assets_value), 200, {'Content-Type': 'application/json'}
     except Exception as e:
+        logger.error(f"Error fetching assets value for user_id {user_id}: {e}")
         return jsonify({'error': str(e)}), 500, {'Content-Type': 'application/json'}

@@ -2,6 +2,9 @@ from app import mongo
 from bson import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from .stock_service import StockService
+import logging
+
+logger = logging.getLogger(__name__)
 
 class UserService:
     @staticmethod
@@ -20,9 +23,12 @@ class UserService:
             "portfolio": []
         }
         try:
+            logger.info(f"Registering new user: {data['username']}")
             mongo.db.users.insert_one(user)
+            logger.info(f"User {data['username']} registered successfully")
             return {"message": "User registered successfully"}
         except Exception as e:
+            logger.error(f"Error registering user {data['username']}: {e}")
             return {"message": "Error registering user"}
 
     @staticmethod
@@ -33,9 +39,15 @@ class UserService:
         Returns the user ID if found, otherwise returns None.
         """
         try:
+            logger.info(f"Fetching user ID for username: {username}")
             user = mongo.db.users.find_one({"username": username}, {"_id": 1})
-            return user['_id'] if user else None
+            if user:
+                logger.info(f"Found user ID for username: {username}")
+                return user['_id']
+            logger.warning(f"User ID not found for username: {username}")
+            return None
         except Exception as e:
+            logger.error(f"Error fetching user ID for username {username}: {e}")
             return None
 
     @staticmethod
@@ -46,11 +58,15 @@ class UserService:
         Returns the user ID if credentials are correct, otherwise returns None.
         """
         try:
+            logger.info(f"Verifying credentials for username: {data['username']}")
             user = mongo.db.users.find_one({"username": data['username']})
             if user and check_password_hash(user['password'], data['password']):
+                logger.info(f"Credentials verified for user: {data['username']}")
                 return user['_id']
+            logger.warning(f"Invalid credentials for username: {data['username']}")
             return None
         except Exception as e:
+            logger.error(f"Error verifying credentials for username {data['username']}: {e}")
             return None
 
     @staticmethod
@@ -61,8 +77,15 @@ class UserService:
         Returns the user document if found, otherwise returns None.
         """
         try:
-            return mongo.db.users.find_one({"_id": ObjectId(user_id)})
+            logger.info(f"Fetching user by ID: {user_id}")
+            user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+            if user:
+                logger.info(f"User found by ID: {user_id}")
+                return user
+            logger.warning(f"User not found by ID: {user_id}")
+            return None
         except Exception as e:
+            logger.error(f"Error fetching user by ID {user_id}: {e}")
             return None
 
     @staticmethod
@@ -74,14 +97,18 @@ class UserService:
         Returns the user's portfolio if the user is found, otherwise returns an empty list.
         """
         try:
+            logger.info(f"Fetching portfolio for user ID: {user_id}")
             user = mongo.db.users.find_one({"_id": ObjectId(user_id)}, {"portfolio": 1})
             if user and 'portfolio' in user:
                 portfolio = user['portfolio']
                 for stock in portfolio:
                     stock['price'] = StockService.get_stock_price(stock['stock_symbol'])
+                logger.info(f"Portfolio fetched for user ID: {user_id}")
                 return portfolio
+            logger.warning(f"No portfolio found for user ID: {user_id}")
             return []
         except Exception as e:
+            logger.error(f"Error fetching portfolio for user ID {user_id}: {e}")
             return []
 
     @staticmethod
@@ -93,9 +120,15 @@ class UserService:
         Returns the user's balance if the user is found, otherwise returns an empty list.
         """
         try:
+            logger.info(f"Fetching balance for user ID: {user_id}")
             user = mongo.db.users.find_one({"_id": ObjectId(user_id)}, {"balance": 1})
-            return user['balance'] if user and 'balance' in user else []
+            if user and 'balance' in user:
+                logger.info(f"Balance fetched for user ID: {user_id}")
+                return user['balance']
+            logger.warning(f"No balance found for user ID: {user_id}")
+            return []
         except Exception as e:
+            logger.error(f"Error fetching balance for user ID {user_id}: {e}")
             return []
 
     @staticmethod
@@ -107,6 +140,7 @@ class UserService:
         Returns the total value of the user's assets if the user is found, otherwise returns 0.
         """
         try:
+            logger.info(f"Fetching assets value for user ID: {user_id}")
             assets_value = 0
             user = mongo.db.users.find_one({"_id": ObjectId(user_id)}, {"portfolio": 1})
             if user and 'portfolio' in user:
@@ -114,6 +148,10 @@ class UserService:
                     price = StockService.get_stock_price(stock['stock_symbol'])
                     if price:
                         assets_value += stock['quantity'] * price
+                logger.info(f"Assets value calculated for user ID: {user_id}")
+            else:
+                logger.warning(f"No portfolio found for user ID: {user_id}")
             return assets_value
         except Exception as e:
+            logger.error(f"Error fetching assets value for user ID {user_id}: {e}")
             return 0

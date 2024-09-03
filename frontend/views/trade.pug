@@ -1,0 +1,52 @@
+extends layout
+
+block content
+  meta(name="csrf-token" content=token)
+  meta(name="balance" content=balance)
+  meta(name="assets_value" content=assets_value)
+  script(src="/javascripts/trade.js")
+  script.
+    const backendPort = "#{BACKEND_PORT}";
+  .container
+    h1 Trade
+    .welcome-transactions-container
+      .welcome-container
+        h3 Welcome, #{user}
+        if balance
+          h3 Liquid Assets: $<span id="balance"></span>
+          h3 Invested Assets: $<span id="investment"></span>
+      .transactions
+        form
+          .transaction-group
+            label(for="stockSymbol" class="transaction-label") Stock Symbol:
+            input(type="text" id="stockSymbol" name="stockSymbol" class="transaction-input" required)
+            button(type="button" id="getPriceButton" style="height: 29px;") Get Price
+          .transaction-group
+            label(for="stockPrice" class="transaction-label") Stock Price:
+            input(type="text" id="stockPrice" name="stockPrice" class="transaction-input" readonly)
+          .transaction-group
+            label(for="numberOfShares" class="transaction-label") Number of Shares:
+            input(type="number" id="numberOfShares" name="numberOfShares" step="1" class="transaction-input" min="1")
+          .transaction-group
+            label(for="totalPrice" class="transaction-label") Total Price:
+            input(type="text" id="totalPrice" name="totalPrice" class="transaction-input" readonly)
+          .transaction-group
+            button(type="button" id="buyButton" class="transaction-button") Buy
+            button(type="button" id="sellButton" class="transaction-button") Sell
+    if portfolio.length
+      .portfolio-container 
+        table.portfolio-table
+          thead
+            tr
+              th Stock Symbol
+              th Quantity
+              th Price
+          tbody
+            each item in portfolio
+              tr
+                td= item.stock_symbol
+                td= item.quantity
+                td= item.price.toFixed(2)
+    else
+      center
+        p You have no stocks in your portfolio.

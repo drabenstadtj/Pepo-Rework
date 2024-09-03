@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  head
+    title Pepo Stock Exchange
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+  body
+    .header-container
+      include _header 
+      include _clock
+    hr
+    .signup-container
+      h1 Sign Up
+      form(action="/auth/signup", method="POST")
+        input(type="text", name="username", id="username", placeholder="Username", required)
+        br
+        input(type="password", name="password", id="password", placeholder="Password", required)
+        br
+        if isProduction
+          input(type="password" name="passcode", placeholder="Passcode" required)
+          if error == 'Incorrect passcode'
+            p.error-message Incorrect passcode
+        br
+        button(type="submit") Sign Up
+
+      h1 Sign In 
+      form(action='/auth/signin', method='get')
+        button(type='submit') Sign In

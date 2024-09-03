@@ -1,0 +1,318 @@
+@import "variables";
+
+body {
+  background-color: $primary-bg-color;
+}
+
+input,
+button {
+  background-color: $input-bg-color;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border-color: $border-color;
+}
+
+button:hover {
+  background-color: $button-hover-bg-color;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+nav ul li {
+  display: inline-block; /* Display list items inline */
+  margin-right: 1rem;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: $nav-hover-color; /* Change the color to gray on hover */
+  }
+}
+
+/* Style for the container holding the header and clock */
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Adjust as needed */
+  align-items: center; /* Align items vertically center */
+  padding: 10px 50px; /* Optional: Add padding */
+}
+
+/* Additional styles for the header and clock components */
+.header-container #header {
+  flex: 1;
+}
+
+.header-container #clock {
+  flex: 1;
+  text-align: right; /* Align the clock to the right */
+}
+
+.navigation {
+  text-align: center;
+  font-size: 24px; /* Adjust the font size as needed */
+}
+
+hr {
+  border: none; /* Remove default border */
+  border-top: 3px solid black; /* Set border to solid black */
+}
+
+main {
+  max-width: 700px;
+  margin: auto;
+}
+
+.green {
+  color: $positive-change-color;
+}
+
+.red {
+  color: $negative-change-color;
+}
+
+.stocks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 1em;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  max-width: 800px;
+  margin-bottom: 20px;
+
+  thead tr {
+    background-color: $table-header-bg-color;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid $portfolio-border-color;
+    position: relative;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: $portfolio-even-row-bg-color;
+  }
+
+  tbody tr:hover {
+    background-color: $table-row-hover-bg-color; /* Change this to your desired hover color */
+  }
+
+  .positive-change {
+    color: $positive-change-color;
+  }
+
+  .negative-change {
+    color: $negative-change-color;
+  }
+}
+
+.stock-popup {
+  position: relative;
+
+  .popuptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: $popup-bg-color;
+    color: #000;
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  &:hover .popuptext {
+    visibility: visible;
+  }
+}
+
+.portfolio-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 1em;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  max-width: 800px;
+  margin-bottom: 20px;
+
+  thead tr {
+    background-color: $table-header-bg-color;
+    color: black;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $portfolio-border-color;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: $portfolio-even-row-bg-color;
+  }
+
+  tbody tr:last-of-type {
+    border-bottom: 2px solid $portfolio-border-color;
+  }
+
+  tbody tr.active-row {
+    font-weight: bold;
+  }
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 1em;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  max-width: 800px;
+  margin-bottom: 20px;
+
+  thead tr {
+    background-color: $table-header-bg-color;
+    color: black;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $portfolio-border-color;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: $portfolio-even-row-bg-color;
+  }
+
+  tbody tr:last-of-type {
+    border-bottom: 2px solid $portfolio-border-color;
+  }
+
+  tbody tr.active-row {
+    font-weight: bold;
+  }
+}
+
+.signin-container,
+.signup-container {
+  text-align: center;
+  margin: auto;
+
+  input {
+    margin-bottom: 5px;
+    padding: 8px;
+  }
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.transaction-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .transaction-label {
+    width: 150px; /* Adjust the width as needed */
+    text-align: right;
+    margin-right: 10px;
+  }
+
+  .transaction-input {
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box; /* Ensures padding is included in the element's total width */
+  }
+
+  .transaction-button {
+    margin: auto; /* Adjust margin to align with other elements */
+    width: 180px;
+    height: 29px;
+  }
+}
+
+#buyButton {
+  background-color: $buy-button-bg-color;
+
+  &:hover {
+    background-color: $buy-button-hover-bg-color;
+  }
+}
+
+#sellButton {
+  background-color: $sell-button-bg-color;
+
+  &:hover {
+    background-color: $sell-button-hover-bg-color;
+  }
+}
+
+.transactions {
+  max-width: 420px;
+  margin-left: auto;
+  background-color: $portfolio-border-color;
+  border-radius: 5px;
+}
+
+.transactions form {
+  margin: 10px;
+}
+
+.positive-change {
+  color: green;
+}
+.negative-change {
+  color: red;
+}
+
+.welcome-transactions-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.welcome-container h3 {
+  margin-top: 0px;
+}
+
+.portfolio-table tbody tr:hover {
+  cursor: pointer;
+}

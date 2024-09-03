@@ -4,6 +4,10 @@ from .trends_service import TrendsService
 from datetime import datetime
 import time
 import random
+from app import socketio  # Import socketio to emit events
+import logging
+
+logger = logging.getLogger(__name__)
 
 class StockService:
     @staticmethod
@@ -20,6 +24,7 @@ class StockService:
             stocks_cursor = mongo.db.stocks.find()
             return [{**stock, '_id': str(stock['_id'])} for stock in stocks_cursor]
         except Exception as e:
+            logger.error(f"Error fetching all stocks: {e}")
             raise e
 
     @staticmethod
@@ -37,6 +42,7 @@ class StockService:
             stock = mongo.db.stocks.find_one({"symbol": stock_symbol})
             return stock['price'] if stock else None
         except Exception as e:
+            logger.error(f"Error fetching stock price for {stock_symbol}: {e}")
             raise e
 
     @staticmethod
@@ -69,8 +75,14 @@ class StockService:
                             'last_update': datetime.now()
                         }}
                     )
-                    time.sleep(5)
+
+                    # Emit stock price update via WebSocket
+                    socketio.emit('stock_update', {'symbol': stock['symbol'], 'price': new_price})
+
+                    logger.info(f"Updated stock {stock['symbol']} price to {new_price}")
+                    time.sleep(5)  # Simulate delay
         except Exception as e:
+            logger.error(f"Error updating stock prices: {e}")
             raise e
 
     @staticmethod
@@ -111,9 +123,15 @@ class StockService:
             )
 
             if result.matched_count == 0:
+                logger.error(f"Failed to update stock '{stock_symbol}' in the database")
                 return {"error": f"Failed to update stock '{stock_symbol}' in the database"}
 
+            # Emit stock price update via WebSocket
+            socketio.emit('stock_update', {'symbol': stock_symbol, 'price': new_price})
+
+            logger.info(f"Updated stock {stock_symbol} price to {new_price}")
             return new_price
 
         except Exception as e:
+            logger.error(f"Error updating stock price for {stock_symbol}: {e}")
             return {"error": "An unexpected error occurred"}

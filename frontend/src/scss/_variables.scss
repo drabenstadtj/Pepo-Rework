@@ -1,0 +1,22 @@
+// _variables.scss
+
+// Define your primary color
+$primary-color: rgb(167, 143, 134);
+
+// Use SCSS functions to create relational colors
+$primary-bg-color: $primary-color;
+$input-bg-color: #eeeeee;
+$border-color: darken($primary-color, 20%);
+$button-hover-bg-color: #b4b3b3;
+$nav-hover-color: gray;
+$table-header-bg-color: darken($primary-color, 20%);
+$table-row-hover-bg-color: lighten($primary-color, 20%);
+$positive-change-color: green;
+$negative-change-color: red;
+$popup-bg-color: lighten($primary-color, 20%);
+$portfolio-even-row-bg-color: lighten($primary-color, 10%);
+$portfolio-border-color: darken($primary-color, 20%);
+$buy-button-bg-color: rgb(193, 252, 175);
+$sell-button-bg-color: rgb(252, 175, 175);
+$buy-button-hover-bg-color: rgb(111, 255, 67);
+$sell-button-hover-bg-color: rgb(255, 81, 81);
