@@ -4,8 +4,6 @@ const dotenv = require('dotenv');
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const config = {
-  port: process.env.FRONTEND_PORT || 3000,
-  backendPort: process.env.BACKEND_PORT || 5000,
   isProduction: process.env.CONFIG === 'production',
   secretKey: process.env.SECRET_KEY,
   sessionSecret: process.env.SESSION_SECRET,

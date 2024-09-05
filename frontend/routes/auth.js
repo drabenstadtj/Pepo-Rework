@@ -4,7 +4,7 @@ const config = require('../config/config');
 
 const router = express.Router();
 
-const getBackendUrl = (endpoint) => `http://localhost:${config.backendPort}${endpoint}`;
+const getBackendUrl = (endpoint) => `http://localhost:5000/${endpoint}`;
 
 router.get('/signup', (req, res) => {
   res.render('signup', { user: req.session.user, isProduction: config.isProduction });
@@ -42,7 +42,10 @@ router.post('/signin', async (req, res) => {
   try {
     const response = await axios.post(getBackendUrl('/auth/verify_credentials'), { username, password });
     if (response.data.message === 'Credentials verified') {
-      req.session.user = username;
+      req.session.user = {
+        username: username,
+        isAdmin: response.data.isAdmin  // Store isAdmin in session
+      };
       req.session.token = response.data.token;
       req.session.save(err => {
         if (err) {
@@ -59,6 +62,7 @@ router.post('/signin', async (req, res) => {
     res.redirect('/auth/signin?error=Invalid username or password');
   }
 });
+
 
 router.get('/logout', (req, res) => {
   req.session.destroy(err => {

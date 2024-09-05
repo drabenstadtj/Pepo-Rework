@@ -20,7 +20,8 @@ class UserService:
             "username": data['username'],
             "password": generate_password_hash(data['password']),
             "balance": 10000,
-            "portfolio": []
+            "portfolio": [],
+            "isAdmin": False
         }
         try:
             logger.info(f"Registering new user: {data['username']}")
@@ -55,19 +56,22 @@ class UserService:
         """
         Verify user credentials.
         Expects data to contain 'username' and 'password'.
-        Returns the user ID if credentials are correct, otherwise returns None.
+        Returns the user object with the isAdmin field if credentials are correct.
         """
         try:
             logger.info(f"Verifying credentials for username: {data['username']}")
             user = mongo.db.users.find_one({"username": data['username']})
             if user and check_password_hash(user['password'], data['password']):
                 logger.info(f"Credentials verified for user: {data['username']}")
-                return user['_id']
+                # Ensure that if the isAdmin field is missing, it defaults to False
+                user['isAdmin'] = user.get('isAdmin', False)
+                return user
             logger.warning(f"Invalid credentials for username: {data['username']}")
             return None
         except Exception as e:
             logger.error(f"Error verifying credentials for username {data['username']}: {e}")
             return None
+
 
     @staticmethod
     def get_user_by_id(user_id):

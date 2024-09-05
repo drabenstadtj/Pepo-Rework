@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const morgan = require('morgan');
-const { createProxyMiddleware } = require('http-proxy-middleware');
 const config = require('./config/config');
 
 const app = express();
@@ -38,6 +37,7 @@ const leaderboardRoutes = require('./routes/leaderboard');
 const stocksRoutes = require('./routes/stocks');
 const tradeRoutes = require('./routes/trade');
 const portfolioRoutes = require('./routes/portfolio');
+const adminRoutes = require('./routes/admin');
 
 app.use('/auth', authRoutes);
 app.use('/', indexRoutes);
@@ -45,6 +45,7 @@ app.use('/leaderboard', leaderboardRoutes);
 app.use('/stocks', stocksRoutes);
 app.use('/trade', tradeRoutes);
 app.use('/portfolio', portfolioRoutes);
+app.use('/admin', adminRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {
@@ -53,12 +54,11 @@ app.use((err, req, res, next) => {
 });
 
 if (config.isProduction) {
-  app.listen(config.port, () => {
-    console.log(`Server is running in production mode on http://localhost:${config.port}`);
+  app.listen(3000, () => {
+    console.log(`Server is running in production mode on http://localhost:3000`);
   });
 } else {
-  app.use('/api', createProxyMiddleware({ target: `http://localhost:${config.backendPort}`, changeOrigin: true }));
-  app.listen(config.port, () => {
-    console.log(`Server is running in development mode on http://localhost:${config.port}`);
+  app.listen(3000, () => {
+    console.log(`Server is running in development mode on http://localhost:3000`);
   });
 }

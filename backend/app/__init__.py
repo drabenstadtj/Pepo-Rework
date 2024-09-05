@@ -1,12 +1,10 @@
 from flask import Flask
 from flask_pymongo import PyMongo
 from flask_cors import CORS
-from flask_socketio import SocketIO
 import logging
 from .config import Config  # Make sure to import your Config class
 
 mongo = PyMongo()
-socketio = SocketIO()
 
 def create_app():
     app = Flask(__name__)
@@ -14,8 +12,7 @@ def create_app():
 
     # Initialize extensions
     mongo.init_app(app)
-    CORS(app)
-    socketio.init_app(app, cors_allowed_origins="*")
+    CORS(app, origins=Config.CORS_ORIGINS)
 
     # Initialize logger
     logger = logging.getLogger(__name__)

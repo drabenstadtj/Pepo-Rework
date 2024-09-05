@@ -1,0 +1,16 @@
+version: '3'
+services:
+  frontend:
+    container_name: pepo_frontend
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      SECRET_KEY: your_secret_key
+      SESSION_SECRET: aaaaaaaa
+      CONFIG: development
+      API_URL: http://localhost:5000
+    volumes:
+      - .:app
+      - /usr/src/app/node_modules
+    command: npm start

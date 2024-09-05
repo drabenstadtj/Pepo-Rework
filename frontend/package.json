@@ -15,7 +15,7 @@
   "main": "app.js",
   "scripts": {
     "build-css": "sass src/scss/styles.scss public/stylesheets/style.css",
-    "start-frontend": "node app.js"
+    "start": "node app.js"
   },
   "devDependencies": {
     "babel-loader": "^9.1.3",

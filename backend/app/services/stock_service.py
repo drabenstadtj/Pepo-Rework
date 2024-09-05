@@ -4,7 +4,6 @@ from .trends_service import TrendsService
 from datetime import datetime
 import time
 import random
-from app import socketio  # Import socketio to emit events
 import logging
 
 logger = logging.getLogger(__name__)
@@ -76,8 +75,6 @@ class StockService:
                         }}
                     )
 
-                    # Emit stock price update via WebSocket
-                    socketio.emit('stock_update', {'symbol': stock['symbol'], 'price': new_price})
 
                     logger.info(f"Updated stock {stock['symbol']} price to {new_price}")
                     time.sleep(5)  # Simulate delay
@@ -125,9 +122,6 @@ class StockService:
             if result.matched_count == 0:
                 logger.error(f"Failed to update stock '{stock_symbol}' in the database")
                 return {"error": f"Failed to update stock '{stock_symbol}' in the database"}
-
-            # Emit stock price update via WebSocket
-            socketio.emit('stock_update', {'symbol': stock_symbol, 'price': new_price})
 
             logger.info(f"Updated stock {stock_symbol} price to {new_price}")
             return new_price

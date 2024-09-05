@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const apiUrl = 'http://localhost:5000'  // Use the global apiUrl variable
-  const socket = io('http://localhost:5000'); // Adjust this to match your frontend server's URL
+  const apiUrl = window.apiUrl;  // Use the global apiUrl variable
 
   const stocksBody = document.getElementById('stocks-body');
   const symbolHeader = document.getElementById('symbol-header');
@@ -11,24 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let sortColumn = 'symbol';
   let sortOrder = 'asc';
 
-  socket.on('connect', () => {
-    console.log('Connected to WebSocket server');
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Disconnected from WebSocket server');
-  });
-
-  socket.on('stock_update', (updatedStock) => {
-    // Update the stock in the local stocks array
-    const index = stocks.findIndex(stock => stock.symbol === updatedStock.symbol);
-    if (index !== -1) {
-      stocks[index] = updatedStock;
-    } else {
-      stocks.push(updatedStock);
-    }
-    sortAndUpdateStocks();
-  });
+  // Function to format the date
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  }
 
   async function fetchStocks() {
     try {
@@ -145,6 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sortAndUpdateStocks();
   });
 
-  fetchStocks();  // Initial fetch to populate the table
-  // Remove the setInterval call as we are now using WebSocket for real-time updates
+  fetchStocks();
+  setInterval(fetchStocks, 10000); // Update every 10 seconds
 });

@@ -43,15 +43,16 @@ def verify_credentials():
     data = request.get_json()
     logger.info(f"Verifying credentials for username: {data.get('username')}")
     
-    user_id = UserService.verify_credentials(data)
-    if user_id:
+    user = UserService.verify_credentials(data)
+    if user:
         token = jwt.encode({
-            'user_id': str(user_id),
+            'user_id': str(user['_id']),
+            'isAdmin': user['isAdmin'],  # Include isAdmin in the token
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
         }, current_app.config['SECRET_KEY'], algorithm="HS256")
         
-        logger.info(f"Credentials verified for user_id: {user_id}. Token generated.")
-        return jsonify({"message": "Credentials verified", "token": token}), 200
+        logger.info(f"Credentials verified for user_id: {user['_id']}. Token generated.")
+        return jsonify({"message": "Credentials verified", "token": token, "isAdmin": user['isAdmin']}), 200
     else:
         logger.warning(f"Invalid credentials provided for username: {data.get('username')}")
         return jsonify({"error": "Invalid username or password"}), 401
