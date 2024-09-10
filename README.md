@@ -142,11 +142,11 @@ The frontend is an Express.js application that serves as the user interface for 
    ` pip install -r requirements.txt `
 
 3. Set up environment variables by creating a .env file:
-   ` ` env
+   ``` env
    DATABASE_URI=mongodb://mongo:27017/gourdstocks
    SECRET_KEY=your_secret_key
    LOG_LEVEL=DEBUG
-   ` `
+   ```
 
 4. Run the backend:
    ` python run.py `
