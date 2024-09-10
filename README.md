@@ -27,7 +27,7 @@ The platform dynamically updates stock prices based on Google Trends data and ru
 
 ## Project File Structure
 ```
-📦yp
+📦Pepo-Stock-Exchange
  ┣ 📂backend
  ┃ ┣ 📂app
  ┃ ┃ ┣ 📂routes
