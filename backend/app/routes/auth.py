@@ -61,6 +61,10 @@ def verify_credentials():
 @bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
+
+    data['username'] = data['username'].strip()
+    data['password'] = data['password'].strip()
+
     logger.info(f"Attempting to register new user with username: {data.get('username')}")
     
     result = UserService.register_user(data)

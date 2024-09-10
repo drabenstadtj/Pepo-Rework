@@ -11,8 +11,15 @@ router.get('/signup', (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-  const { username, password, passcode } = req.body;
+  let { username, password, passcode } = req.body;
 
+  username = username.trim();
+  password = password.trim();
+
+  if (username.includes(' ') || password.includes(' ')) {
+    return res.render('signup', { error: 'Username or Password cannot contain spaces', isProduction: config.isProduction });
+  }
+  
   if (config.isProduction && passcode !== config.signupPasscode) {
     return res.render('signup', { error: 'Incorrect passcode', isProduction: config.isProduction });
   }
