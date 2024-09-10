@@ -26,7 +26,7 @@ The platform dynamically updates stock prices based on Google Trends data and ru
 ---
 
 ## Project File Structure
-
+```
 📦yp
  ┣ 📂backend
  ┃ ┣ 📂app
@@ -106,7 +106,7 @@ The platform dynamically updates stock prices based on Google Trends data and ru
  ┃ ┗ 📜tasks.py
  ┣ 📜.gitignore
  ┗ 📜README.md
-
+```
 ## Project Architecture
 
 - **Backend (Flask)**:
