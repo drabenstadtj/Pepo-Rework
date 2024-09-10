@@ -10,6 +10,9 @@ nav.navigation
             a(href='/trade') Trade
         li
             a(href="/about") About
+        if user.isAdmin
+            li
+                a(href="/admin") Dashboard
         if user
             li
                 a(href="/auth/logout") Logout
