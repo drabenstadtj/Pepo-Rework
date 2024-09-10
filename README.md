@@ -25,6 +25,88 @@ The platform dynamically updates stock prices based on Google Trends data and ru
 
 ---
 
+## Project File Structure
+
+📦yp
+ ┣ 📂backend
+ ┃ ┣ 📂app
+ ┃ ┃ ┣ 📂routes
+ ┃ ┃ ┃ ┣ 📜auth.py
+ ┃ ┃ ┃ ┣ 📜leaderboard.py
+ ┃ ┃ ┃ ┣ 📜portfolio.py
+ ┃ ┃ ┃ ┣ 📜stocks.py
+ ┃ ┃ ┃ ┣ 📜transactions.py
+ ┃ ┃ ┃ ┣ 📜websocket_routes.py
+ ┃ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┃ ┣ 📂services
+ ┃ ┃ ┃ ┣ 📜leaderboard_service.py
+ ┃ ┃ ┃ ┣ 📜stock_service.py
+ ┃ ┃ ┃ ┣ 📜transaction_service.py
+ ┃ ┃ ┃ ┣ 📜trends_service.py
+ ┃ ┃ ┃ ┗ 📜user_service.py
+ ┃ ┃ ┣ 📜config.py
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📜docker-compose.yml
+ ┃ ┣ 📜Dockerfile
+ ┃ ┣ 📜requirements.txt
+ ┃ ┗ 📜run.py
+ ┣ 📂frontend
+ ┃ ┣ 📂config
+ ┃ ┃ ┗ 📜config.js
+ ┃ ┣ 📂middleware
+ ┃ ┃ ┣ 📜attachToken.js
+ ┃ ┃ ┣ 📜isAdmin.js
+ ┃ ┃ ┗ 📜requireLogin.js
+ ┃ ┣ 📂public
+ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┗ 📜JSc2YO1.gif
+ ┃ ┃ ┣ 📂javascripts
+ ┃ ┃ ┃ ┣ 📜leaderboard.js
+ ┃ ┃ ┃ ┣ 📜stocks.js
+ ┃ ┃ ┃ ┗ 📜trade.js
+ ┃ ┃ ┗ 📂stylesheets
+ ┃ ┃ ┃ ┗ 📜style.css
+ ┃ ┣ 📂routes
+ ┃ ┃ ┣ 📜admin.js
+ ┃ ┃ ┣ 📜auth.js
+ ┃ ┃ ┣ 📜index.js
+ ┃ ┃ ┣ 📜leaderboard.js
+ ┃ ┃ ┣ 📜portfolio.js
+ ┃ ┃ ┣ 📜stocks.js
+ ┃ ┃ ┗ 📜trade.js
+ ┃ ┣ 📂src
+ ┃ ┃ ┗ 📂scss
+ ┃ ┃ ┃ ┣ 📜main.js
+ ┃ ┃ ┃ ┣ 📜styles.scss
+ ┃ ┃ ┃ ┗ 📜_variables.scss
+ ┃ ┣ 📂views
+ ┃ ┃ ┣ 📜about.pug
+ ┃ ┃ ┣ 📜admin.pug
+ ┃ ┃ ┣ 📜index.pug
+ ┃ ┃ ┣ 📜layout.pug
+ ┃ ┃ ┣ 📜leaderboard.pug
+ ┃ ┃ ┣ 📜signin.pug
+ ┃ ┃ ┣ 📜signup.pug
+ ┃ ┃ ┣ 📜stocks.pug
+ ┃ ┃ ┣ 📜trade.pug
+ ┃ ┃ ┣ 📜_clock.pug
+ ┃ ┃ ┣ 📜_header.pug
+ ┃ ┃ ┗ 📜_navigation.pug
+ ┃ ┣ 📜app.js
+ ┃ ┣ 📜docker-compose.yml
+ ┃ ┣ 📜Dockerfile
+ ┃ ┣ 📜package-lock.json
+ ┃ ┗ 📜package.json
+ ┣ 📂updates
+ ┃ ┣ 📜celerybeat-schedule
+ ┃ ┣ 📜celery_config.py
+ ┃ ┣ 📜docker-compose.yml
+ ┃ ┣ 📜Dockerfile
+ ┃ ┣ 📜requirements.txt
+ ┃ ┗ 📜tasks.py
+ ┣ 📜.gitignore
+ ┗ 📜README.md
+
 ## Project Architecture
 
 - **Backend (Flask)**:
