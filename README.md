@@ -46,50 +46,50 @@ The platform dynamically updates stock prices based on Google Trends data and ru
 ### Backend Setup
 
 1. **Navigate to the `backend` directory**:
-   backtick cd backend backtick
+   ` cd backend `
 
 2. **Install dependencies**:
-   backtick pip install -r requirements.txt backtick
+   ` pip install -r requirements.txt `
 
 3. **Setup environment variables**:
    Create a `.env` file and configure the following variables:
-   backtick backtick env
+   ``` env
    DATABASE_URI=mongodb://mongo:27017/gourdstocks
    SECRET_KEY=your_secret_key
    LOG_LEVEL=DEBUG
-   backtick backtick
+   ```
 
 4. **Run the backend**:
-   backtick python run.py backtick
+   ` python run.py `
 
 ### Frontend Setup
 
 1. **Navigate to the `frontend` directory**:
-   backtick cd frontend backtick
+   ` cd frontend `
 
 2. **Install frontend dependencies**:
-   backtick npm install backtick
+   ` npm install `
 
 3. **Setup environment variables**:
    Create a `.env` file and configure the following:
-   backtick backtick env
+   ``` env
    CONFIG=development
    SECRET_KEY=your_secret_key
    SESSION_SECRET=your_session_secret
    SIGNUP_PASSCODE=your_signup_passcode
-   backtick backtick
+   ```
 
 4. **Run the frontend**:
-   backtick npm start backtick
+   ` npm start `
 
 ### Docker Setup
 
 1. **Build and start the backend and frontend**:
-   backtick docker-compose up --build backtick
+   ` docker-compose up --build `
 
 2. **Access**:
-   - Backend API: backtick http://localhost:5000 backtick
-   - Frontend: backtick http://localhost:3000 backtick
+   - Backend API: ` http://localhost:5000 `
+   - Frontend: ` http://localhost:3000 `
 
 ---
 
