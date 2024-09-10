@@ -1,0 +1,4 @@
+celery==5.4.0
+pymongo==4.8.0
+pytrends==4.9.2
+redis==4.6.0

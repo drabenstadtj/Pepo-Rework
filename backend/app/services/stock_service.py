@@ -100,7 +100,7 @@ class StockService:
             if not stock:
                 return {"error": f"Stock '{stock_symbol}' not found"}
 
-            price_change = 0.1 * quantity  # Adjust this factor as needed
+            price_change = 0.02 * quantity  # Adjust this factor as needed
             new_price = stock['price'] + price_change if is_buying else stock['price'] - price_change
 
             old_price = stock['price']
