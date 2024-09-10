@@ -4,7 +4,7 @@ const config = require('../config/config');
 
 const router = express.Router();
 
-const getBackendUrl = (endpoint) => `http://localhost:5000/${endpoint}`;
+const getBackendUrl = (endpoint) => `http://pepo_backend:5000${endpoint}`;
 
 router.get('/signup', (req, res) => {
   res.render('signup', { user: req.session.user, isProduction: config.isProduction });
@@ -19,18 +19,22 @@ router.post('/signup', async (req, res) => {
 
   try {
     const response = await axios.post(getBackendUrl('/auth/register'), { username, password });
-    if (response.data.message === 'User registered successfully') {
+    
+    if (response.status === 200 && response.data.message === 'User registered successfully') {
       req.session.user = username;
       req.session.token = response.data.token;
       res.redirect('/');
-    } else {
-      res.send('Signup failed!');
     }
   } catch (error) {
+    if (error.response && error.response.status === 409) {
+      // Username is taken, show an error on the signup form
+      return res.render('signup', { error: 'Username is already taken', isProduction: config.isProduction });
+    }
     console.error('Signup error:', error);
     res.status(500).send('Signup failed!');
   }
 });
+
 
 router.get('/signin', (req, res) => {
   const error = req.query.error;

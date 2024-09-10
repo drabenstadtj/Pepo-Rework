@@ -6,7 +6,7 @@ const axios = require('axios');
 
 const router = express.Router();
 
-const getBackendUrl = (endpoint) => `http://localhost:5000/${endpoint}`;
+const getBackendUrl = (endpoint) => `http://pepo_backend:5000${endpoint}`;
 
 router.get('/', requireLogin, attachToken, async (req, res) => {
   try {

@@ -16,6 +16,11 @@ class UserService:
         Stores user information in the users collection.
         Returns a success message upon successful registration.
         """
+
+        if mongo.db.users.find_one({"username": data['username']}):
+            logger.info(f"Duplicate user not registered: {data['username']}")
+            return {"message": "Duplicate user not registered"}
+
         user = {
             "username": data['username'],
             "password": generate_password_hash(data['password']),

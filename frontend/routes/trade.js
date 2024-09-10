@@ -6,7 +6,7 @@ const axios = require('axios');
 
 const router = express.Router();
 
-const getBackendUrl = (endpoint) => `http://localhost:5000/${endpoint}`;
+const getBackendUrl = (endpoint) => `http://pepo_backend:5000${endpoint}`;
 
 router.get('/', requireLogin, attachToken, async (req, res) => {
   try {
@@ -24,8 +24,8 @@ router.get('/', requireLogin, attachToken, async (req, res) => {
     const portfolio = portfolioResponse.data;
     const balance = balanceResponse.data;
     const assets_value = assetsValueResponse.data;
-
-    res.render('trade', { user: req.session.user, portfolio, balance, assets_value, token });
+    
+    res.render('trade', { user: req.session.user.username, portfolio, balance, assets_value, token });
   } catch (error) {
     console.error('Trade fetch error:', error);
     res.status(500).send("Internal Server Error");

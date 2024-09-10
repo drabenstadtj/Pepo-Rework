@@ -5,7 +5,7 @@ const isAdmin = require('../middleware/isAdmin');
 
 const router = express.Router();
 
-const getBackendUrl = (endpoint) => `http://localhost:5000/${endpoint}`;
+const getBackendUrl = (endpoint) => `http://pepo_backend:5000${endpoint}`;
 
 router.get('/', isAdmin, (req, res) => {
     res.render('admin', { user: req.session.user });

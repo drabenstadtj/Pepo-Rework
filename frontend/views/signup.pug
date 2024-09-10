@@ -20,7 +20,8 @@ html(lang="en")
           input(type="password" name="passcode", placeholder="Passcode" required)
           if error == 'Incorrect passcode'
             p.error-message Incorrect passcode
-        br
+        if error == 'Username is already taken'
+          p.error-message Username is already taken
         button(type="submit") Sign Up
 
       h1 Sign In 

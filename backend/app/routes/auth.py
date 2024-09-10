@@ -48,7 +48,7 @@ def verify_credentials():
         token = jwt.encode({
             'user_id': str(user['_id']),
             'isAdmin': user['isAdmin'],  # Include isAdmin in the token
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
+            'exp': datetime.datetime.now() + datetime.timedelta(hours=24)
         }, current_app.config['SECRET_KEY'], algorithm="HS256")
         
         logger.info(f"Credentials verified for user_id: {user['_id']}. Token generated.")
@@ -64,12 +64,17 @@ def register():
     logger.info(f"Attempting to register new user with username: {data.get('username')}")
     
     result = UserService.register_user(data)
+    
     if "message" in result and result["message"] == "User registered successfully":
         logger.info(f"User {data.get('username')} registered successfully.")
+        return jsonify(result), 200
+    elif "message" in result and result["message"] == "Duplicate user not registered":
+        logger.warning(f"Username {data.get('username')} is already taken.")
+        return jsonify({"error": "Username is already taken!"}), 409  # 409 Conflict
     else:
         logger.error(f"Failed to register user {data.get('username')}.")
-        
-    return jsonify(result)
+        return jsonify({"error": "Failed to register user!"}), 500
+
 
 # Route to get the user ID by username, requires a valid JWT token
 @bp.route('/get_user_id', methods=['GET'])

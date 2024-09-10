@@ -11,6 +11,12 @@ services:
       CONFIG: development
       API_URL: http://localhost:5000
     volumes:
-      - .:app
+      - .:/usr/src/app
       - /usr/src/app/node_modules
     command: npm start
+    networks:
+      - pepo-network
+
+networks:
+  pepo-network:
+    external: true

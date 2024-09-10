@@ -12,6 +12,8 @@ services:
       - mongo
     volumes:
       - .:/app  # Optional: Mounts the current directory to the container, useful for development
+    networks:
+      - pepo-network
 
   mongo:
     container_name: mongo
@@ -20,6 +22,12 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - pepo-network
+
+networks:
+  pepo-network:
+    external: true
 
 volumes:
   mongo-data:
