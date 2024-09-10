@@ -1,205 +1,154 @@
-# Pepo Exchange
+# Pepo Exchange - Developer Documentation
 
 ## Overview
 
-**Pepo Exchange** is a simulated stock market platform that allows users to experience a realistic trading environment. The platform integrates a Flask-based backend for handling core logic, MongoDB for data storage, and an Express.js-based frontend with Pug for rendering the user interface. Stock prices are dynamically updated based on live data fetched from Google Trends, providing a simulated stock market experience.
+**Pepo Exchange** is a simulated stock market platform built to provide users with a realistic trading environment. The project integrates a Flask-based backend (API) with MongoDB for data storage and an Express.js-based frontend using Pug for the UI.
+
+The platform dynamically updates stock prices based on Google Trends data and runs scheduled background tasks using Celery and Redis to ensure real-time simulation. This project handles user authentication, stock transactions, and portfolio management.
 
 ---
 
 ## Table of Contents
 
 1. [Project Architecture](#project-architecture)
-2. [Features](#features)
-3. [Backend](#backend)
-    - [Backend Endpoints](#backend-endpoints)
-4. [Frontend](#frontend)
-    - [Frontend Routes](#frontend-routes)
-5. [Setting Up the Project](#setting-up-the-project)
-6. [Docker Setup](#docker-setup)
-7. [Scheduled Tasks](#scheduled-tasks)
-8. [Error Handling and Logging](#error-handling-and-logging)
+2. [Setup](#setup)
+    - [Backend](#backend-setup)
+    - [Frontend](#frontend-setup)
+    - [Environment Variables](#environment-variables)
+    - [Docker Setup](#docker-setup)
+3. [Development Workflow](#development-workflow)
+    - [Backend Structure](#backend-structure)
+    - [Frontend Structure](#frontend-structure)
+    - [Celery Tasks](#celery-tasks)
+    - [Error Handling and Logging](#error-handling-and-logging)
+4. [Future Improvements](#future-improvements)
 
 ---
 
 ## Project Architecture
 
-Pepo Exchange consists of two major components:
-
-- **Backend**: A Flask application that handles user authentication, portfolio management, transaction processing, and stock updates. MongoDB is used for storing user data, stock information, and transactions.
-- **Frontend**: An Express.js application using Pug templates for rendering. It communicates with the backend through API calls and provides the interface for users to interact with the platform.
-
----
-
-## Features
-
-- **User Authentication**: JWT-based login and registration, with session management.
-- **Portfolio Management**: Users can view and manage their stock portfolios.
-- **Transaction Handling**: Buy and sell stocks, with real-time price updates.
-- **Live Stock Prices**: Stock prices are updated periodically based on Google Trends data.
-- **Leaderboard**: Users are ranked based on their net worth.
-- **Scheduled Tasks**: Stock prices are updated every hour using Celery and Redis for scheduling.
+- **Backend (Flask)**:
+  - Handles all business logic, user authentication, stock data, and transactions.
+  - MongoDB is used to persist user data, stock information, and transactions.
+  - JWT is used for user authentication.
+  
+- **Frontend (Express.js)**:
+  - Pug templates for rendering pages.
+  - Express.js handles routes and connects to the backend via Axios.
+  
+- **Background Tasks**:
+  - Celery with Redis as the message broker handles scheduled tasks like updating stock prices using Google Trends data.
 
 ---
 
-## Backend
+## Setup
 
-The backend is built with Flask and follows a service-oriented architecture, where each feature (such as user authentication, stocks, or transactions) is handled by a separate service. The Flask application is organized into routes, services, and utility modules.
+### Backend Setup
 
-### Backend Endpoints
+1. **Navigate to the `backend` directory**:
+   backtick cd backend backtick
 
-#### Authentication
+2. **Install dependencies**:
+   backtick pip install -r requirements.txt backtick
 
-| HTTP Method | Endpoint          | Description                                       |
-|-------------|-------------------|---------------------------------------------------|
-| POST        | /auth/register     | Registers a new user.                            |
-| POST        | /auth/verify_credentials | Verifies user credentials and issues a JWT.  |
-| GET         | /auth/get_user_id  | Retrieves a user's ID based on the username.      |
-
-#### Portfolio
-
-| HTTP Method | Endpoint               | Description                            |
-|-------------|------------------------|----------------------------------------|
-| GET         | /portfolio/stocks       | Fetches the user's portfolio.          |
-| GET         | /portfolio/balance      | Fetches the user's balance.            |
-| GET         | /portfolio/assets_value | Fetches the total value of user's assets. |
-
-#### Stocks
-
-| HTTP Method | Endpoint               | Description                                    |
-|-------------|------------------------|------------------------------------------------|
-| GET         | /stocks/               | Fetches all available stocks.                  |
-| GET         | /stocks/:symbol        | Fetches the current price of a specific stock. |
-
-#### Transactions
-
-| HTTP Method | Endpoint               | Description                                    |
-|-------------|------------------------|------------------------------------------------|
-| POST        | /transactions/buy      | Buys a stock.                                  |
-| POST        | /transactions/sell     | Sells a stock.                                 |
-| GET         | /transactions/         | Fetches all transactions for the authenticated user. |
-
----
-
-## Frontend
-
-The frontend is an Express.js application that serves as the user interface for Pepo Exchange. It uses Pug templates for rendering HTML pages and communicates with the backend via API calls to fetch stock data, manage user portfolios, and execute transactions.
-
-### Frontend Routes
-
-#### Authentication
-
-| HTTP Method | Route       | Description |
-|-------------|-------------|-------------|
-| GET         | /auth/signup   | Render the signup page. |
-| POST        | /auth/signup   | Handle signup requests. |
-| GET         | /auth/signin   | Render the signin page. |
-| POST        | /auth/signin   | Handle signin requests. |
-| GET         | /auth/logout   | Log the user out and clear the session. |
-
-#### Main Pages
-
-| HTTP Method | Route       | Description |
-|-------------|-------------|-------------|
-| GET         | /           | Render the homepage (requires login). |
-| GET         | /about      | Render the about page (requires login). |
-
-#### Portfolio
-
-| HTTP Method | Route       | Description |
-|-------------|-------------|-------------|
-| GET         | /portfolio/balance      | Fetch the user's balance. |
-| GET         | /portfolio/assets_value | Fetch the user's total assets value. |
-| GET         | /portfolio/stocks       | Fetch the user's portfolio stocks. |
-
-#### Stocks
-
-| HTTP Method | Route       | Description |
-|-------------|-------------|-------------|
-| GET         | /stocks     | Fetch all available stocks and render the stocks page. |
-
-#### Trading
-
-| HTTP Method | Route       | Description |
-|-------------|-------------|-------------|
-| GET         | /trade      | Render the trade page, fetch portfolio and balance data. |
-
-#### Leaderboard
-
-| HTTP Method | Route       | Description |
-|-------------|-------------|-------------|
-| GET         | /leaderboard | Render the leaderboard page. |
-
----
-
-## Setting Up the Project
-
-### Backend
-
-1. Navigate to the backend/ directory.
-   ` cd backend `
-
-2. Install the dependencies:
-   ` pip install -r requirements.txt `
-
-3. Set up environment variables by creating a .env file:
-   ``` env
+3. **Setup environment variables**:
+   Create a `.env` file and configure the following variables:
+   backtick backtick env
    DATABASE_URI=mongodb://mongo:27017/gourdstocks
    SECRET_KEY=your_secret_key
    LOG_LEVEL=DEBUG
-   ```
+   backtick backtick
 
-4. Run the backend:
-   ` python run.py `
+4. **Run the backend**:
+   backtick python run.py backtick
 
-### Frontend
+### Frontend Setup
 
-1. Navigate to the frontend/ directory:
-   ` cd frontend `
+1. **Navigate to the `frontend` directory**:
+   backtick cd frontend backtick
 
-2. Install the dependencies:
-   ` npm install `
+2. **Install frontend dependencies**:
+   backtick npm install backtick
 
-3. Set up environment variables in .env:
-   ` ` env
+3. **Setup environment variables**:
+   Create a `.env` file and configure the following:
+   backtick backtick env
    CONFIG=development
    SECRET_KEY=your_secret_key
    SESSION_SECRET=your_session_secret
    SIGNUP_PASSCODE=your_signup_passcode
-   ` `
+   backtick backtick
 
-4. Run the frontend:
-   ` npm start `
+4. **Run the frontend**:
+   backtick npm start backtick
 
----
+### Docker Setup
 
-## Docker Setup
+1. **Build and start the backend and frontend**:
+   backtick docker-compose up --build backtick
 
-Both the backend and frontend are Dockerized, making it easy to set up and run the project in containers.
-
-1. **Build and Start the Backend and Frontend Containers**:
-   ` docker-compose up --build `
-
-2. **Access the Application**:
-   - Backend API: ` http://localhost:5000 `
-   - Frontend: ` http://localhost:3000 `
+2. **Access**:
+   - Backend API: backtick http://localhost:5000 backtick
+   - Frontend: backtick http://localhost:3000 backtick
 
 ---
 
-## Scheduled Tasks
+## Development Workflow
 
-The backend uses Celery with Redis as the message broker to schedule periodic tasks like updating stock prices every hour.
+### Backend Structure
 
-- **Updating Stock Prices**: The stock prices are updated based on the live data fetched from Google Trends, which simulates real-time market changes.
+- **app/**: Contains the core business logic of the backend.
+  - **routes/**: API route definitions (authentication, stocks, portfolio, transactions).
+  - **services/**: All the services used to manage user data, transactions, stocks, etc.
+  - **config.py**: Application configuration.
+  - **run.py**: Main entry point for running the Flask app.
+
+- **Logging**:
+  - Logs are stored in the `logs/app.log` file, which captures important runtime information.
+
+- **MongoDB**:
+  - The database is structured to store users, stocks, portfolios, and transaction data.
+  - The `DATABASE_URI` should be defined in `.env`.
+
+### Frontend Structure
+
+- **app.js**: Main entry point for the Express app.
+- **config/**: Configuration and environment setup (pulls from `.env`).
+- **middleware/**: Middleware functions for attaching tokens and checking user roles.
+- **routes/**: Defines all the routes for the frontend (auth, portfolio, stocks, trade, etc.).
+- **views/**: Pug templates for rendering the UI.
+- **public/**: Contains static assets like CSS and images.
+
+### Celery Tasks
+
+Scheduled background tasks are handled using **Celery**:
+
+- **Update Stock Prices**:
+  - Fetches live interest data from Google Trends and updates stock prices hourly.
+  - Implemented in `tasks.py` with a Celery Beat schedule configured in `celery_config.py`.
+  
+- **Task Scheduling**:
+  - Stock prices are updated using Celery Beat and Redis, ensuring real-time price changes.
+  - Configuration for Redis is in the `docker-compose.yml` and `.env`.
 
 ---
 
 ## Error Handling and Logging
 
-Both the frontend and backend log errors using morgan and logging respectively.
+- **Backend**:
+  - The backend logs errors and relevant runtime info into `logs/app.log` using Python’s built-in `logging` library.
 
-- **Backend Logs**: Stored in /logs/app.log.
-- **Frontend Logs**: Displayed in the console using morgan.
+- **Frontend**:
+  - The frontend uses `morgan` for logging HTTP requests and error handling middleware for catching issues.
 
-Error messages and stack traces are printed to the logs, making it easy to debug issues.
+- **JWT Error Handling**:
+  - If a user's JWT token expires or is invalid, they are redirected to the login page.
 
 ---
+
+## Future Improvements
+
+- **Unit Tests**: Add comprehensive unit and integration tests for backend services and frontend components.
+- **Rate Limiting**: Implement rate limiting on API routes to prevent abuse.
+- **Enhanced UI**: Improve the user interface with additional real-time data and visual feedback for stock transactions.
+- **Scalability**: Refactor the backend to support horizontal scaling, particularly for handling large datasets and high user traffic.
