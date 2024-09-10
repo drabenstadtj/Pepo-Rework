@@ -1,159 +1,205 @@
-# Pepo Stock Exchange
+# Pepo Exchange
 
-## Description
+## Overview
 
-Pepo Exchange is a simulated stock market application that provides users with a realistic stock trading experience. This web-based platform integrates a Flask-based backend with a MongoDB database and an Express.js frontend using Pug templating.
+**Pepo Exchange** is a simulated stock market platform that allows users to experience a realistic trading environment. The platform integrates a Flask-based backend for handling core logic, MongoDB for data storage, and an Express.js-based frontend with Pug for rendering the user interface. Stock prices are dynamically updated based on live data fetched from Google Trends, providing a simulated stock market experience.
 
-The backend handles all business logic, data processing, and user interactions with the database. Key features include user authentication (registration and login), stock management (fetching current stock prices and sectors), transaction handling (buying and selling stocks), and portfolio management (viewing owned stocks and balances). Stock prices are dynamically updated based on Google Trends data to simulate real market interest, making the application more engaging and realistic.
+---
 
-Scheduled tasks update stock prices every hour, ensuring the data remains current. The backend is structured with clear separation of concerns, organized into routes, services, and scripts to ensure maintainability and scalability.
+## Table of Contents
 
-The frontend, built with Express.js and Pug, provides a user-friendly interface where users can sign up, log in, manage their portfolios, view stock information, and perform trades. The interface is designed to be intuitive and responsive.
+1. [Project Architecture](#project-architecture)
+2. [Features](#features)
+3. [Backend](#backend)
+    - [Backend Endpoints](#backend-endpoints)
+4. [Frontend](#frontend)
+    - [Frontend Routes](#frontend-routes)
+5. [Setting Up the Project](#setting-up-the-project)
+6. [Docker Setup](#docker-setup)
+7. [Scheduled Tasks](#scheduled-tasks)
+8. [Error Handling and Logging](#error-handling-and-logging)
+
+---
+
+## Project Architecture
+
+Pepo Exchange consists of two major components:
+
+- **Backend**: A Flask application that handles user authentication, portfolio management, transaction processing, and stock updates. MongoDB is used for storing user data, stock information, and transactions.
+- **Frontend**: An Express.js application using Pug templates for rendering. It communicates with the backend through API calls and provides the interface for users to interact with the platform.
+
+---
 
 ## Features
 
-- User Authentication (Registration and Login)
-- Stock Management (Fetch Current Prices and Sectors)
-- Transaction Handling (Buy and Sell Stocks)
-- Portfolio Management (View Owned Stocks and Balances)
-- Dynamic Stock Prices based on Google Trends Data
-- Scheduled Tasks to Update Stock Prices
+- **User Authentication**: JWT-based login and registration, with session management.
+- **Portfolio Management**: Users can view and manage their stock portfolios.
+- **Transaction Handling**: Buy and sell stocks, with real-time price updates.
+- **Live Stock Prices**: Stock prices are updated periodically based on Google Trends data.
+- **Leaderboard**: Users are ranked based on their net worth.
+- **Scheduled Tasks**: Stock prices are updated every hour using Celery and Redis for scheduling.
 
-## File Structure
+---
 
-```
-📦Pepo-Stock-Exchange
-┣ 📂.git
-┣ 📂backend
-┃ ┣ 📂app
-┃ ┃ ┣ 📂routes
-┃ ┃ ┃ ┣ 📜auth.py
-┃ ┃ ┃ ┣ 📜leaderboard.py
-┃ ┃ ┃ ┣ 📜portfolio.py
-┃ ┃ ┃ ┣ 📜stocks.py
-┃ ┃ ┃ ┣ 📜transactions.py
-┃ ┃ ┃ ┗ 📜__init__.py
-┃ ┃ ┣ 📂services
-┃ ┃ ┃ ┣ 📜leaderboard_service.py
-┃ ┃ ┃ ┣ 📜stock_service.py
-┃ ┃ ┃ ┣ 📜transaction_service.py
-┃ ┃ ┃ ┣ 📜trends_service.py
-┃ ┃ ┃ ┗ 📜user_service.py
-┃ ┃ ┣ 📜config.py
-┃ ┃ ┗ 📜__init__.py
-┃ ┣ 📜requirements.txt
-┃ ┣ 📜run.py
-┃ ┗ 📜wsgi.py
-┣ 📂frontend
-┃ ┣ 📂config
-┃ ┃ ┗ 📜config.js
-┃ ┣ 📂public
-┃ ┃ ┣ 📂images
-┃ ┃ ┣ 📂javascripts
-┃ ┃ ┃ ┣ 📜bundle.js
-┃ ┃ ┃ ┣ 📜leaderboard.js
-┃ ┃ ┃ ┣ 📜stocks.js
-┃ ┃ ┃ ┗ 📜trade.js
-┃ ┃ ┗ 📂stylesheets
-┃ ┣ 📂src
-┃ ┃ ┗ 📂scss
-┃ ┃ ┃ ┣ 📜main.js
-┃ ┃ ┃ ┣ 📜styles.scss
-┃ ┃ ┃ ┗ 📜_variables.scss
-┃ ┣ 📂views
-┃ ┃ ┣ 📜about.pug
-┃ ┃ ┣ 📜index.pug
-┃ ┃ ┣ 📜layout.pug
-┃ ┃ ┣ 📜leaderboard.pug
-┃ ┃ ┣ 📜signin.pug
-┃ ┃ ┣ 📜signup.pug
-┃ ┃ ┣ 📜stocks.pug
-┃ ┃ ┣ 📜trade.pug
-┃ ┃ ┣ 📜_clock.pug
-┃ ┃ ┣ 📜_header.pug
-┃ ┃ ┗ 📜_navigation.pug
-┃ ┣ 📜app.js
-┃ ┣ 📜package-lock.json
-┃ ┣ 📜package.json
-┃ ┗ 📜webpack.config.js
-┣ 📂utility
-┃ ┣ 📂data
-┃ ┃ ┣ 📜initialize_stocks.py
-┃ ┃ ┣ 📜initial_data.json
-┃ ┃ ┗ 📜StockNames.xlsx
-┃ ┣ 📂stock_updater
-┃ ┃ ┣ 📜trends_updater.py
-┃ ┃ ┗ 📜update_stock_prices.py
-┃ ┗ 📜test.py
-┣ 📜.gitignore
-┗ 📜README.md
-```
+## Backend
 
-## API Documentation
-### Authentication
+The backend is built with Flask and follows a service-oriented architecture, where each feature (such as user authentication, stocks, or transactions) is handled by a separate service. The Flask application is organized into routes, services, and utility modules.
 
-- POST /auth/register
-     * Registers a new user.\
-    Request body: { "username": "your_username", "password": "your_password" }\ 
-    Response: { "message": "User registered successfully" }
+### Backend Endpoints
 
-- POST /auth/verify_credentials
-     * Verifies user credentials and issues a JWT token.\
-    Request body: { "username": "your_username", "password": "your_password" }\
-    Response: { "message": "Credentials verified", "token": "your_jwt_token" }
+#### Authentication
 
-### Portfolio
+| HTTP Method | Endpoint          | Description                                       |
+|-------------|-------------------|---------------------------------------------------|
+| POST        | /auth/register     | Registers a new user.                            |
+| POST        | /auth/verify_credentials | Verifies user credentials and issues a JWT.  |
+| GET         | /auth/get_user_id  | Retrieves a user's ID based on the username.      |
 
-- GET /portfolio/stocks
-     * Fetches the user's portfolio.\
-    Requires a valid JWT token.\
-    Response: JSON array of user's stocks.
+#### Portfolio
 
-- GET /portfolio/balance
-     * Fetches the user's balance.\
-    Requires a valid JWT token.\
-    Response: { "balance": user_balance }
+| HTTP Method | Endpoint               | Description                            |
+|-------------|------------------------|----------------------------------------|
+| GET         | /portfolio/stocks       | Fetches the user's portfolio.          |
+| GET         | /portfolio/balance      | Fetches the user's balance.            |
+| GET         | /portfolio/assets_value | Fetches the total value of user's assets. |
 
-- GET /portfolio/assets_value
-     * Fetches the total value of the user's assets.\
-    Requires a valid JWT token.\
-    Response: { "assets_value": total_assets_value }
+#### Stocks
 
-### Stocks
+| HTTP Method | Endpoint               | Description                                    |
+|-------------|------------------------|------------------------------------------------|
+| GET         | /stocks/               | Fetches all available stocks.                  |
+| GET         | /stocks/:symbol        | Fetches the current price of a specific stock. |
 
-- GET /stocks/
-     * Fetches all stocks.\
-    Response: JSON array of stocks.
+#### Transactions
 
-- GET /stocks/
-     * Fetches the current price of a stock.\
-    Response: { "symbol": "stock_symbol", "price": stock_price }
+| HTTP Method | Endpoint               | Description                                    |
+|-------------|------------------------|------------------------------------------------|
+| POST        | /transactions/buy      | Buys a stock.                                  |
+| POST        | /transactions/sell     | Sells a stock.                                 |
+| GET         | /transactions/         | Fetches all transactions for the authenticated user. |
 
-### Transactions
+---
 
-- POST /transactions/buy
-     * Buys a stock.\
-    Request body: { "stock_symbol": "symbol", "quantity": quantity }\
-    Requires a valid JWT token.\
-    Response: { "message": "Stock purchased successfully" }
+## Frontend
 
-- POST /transactions/sell
-     * Sells a stock.\
-    Request body: { "stock_symbol": "symbol", "quantity": quantity }\
-    Requires a valid JWT token.\
-    Response: { "message": "Stock sold successfully" }
+The frontend is an Express.js application that serves as the user interface for Pepo Exchange. It uses Pug templates for rendering HTML pages and communicates with the backend via API calls to fetch stock data, manage user portfolios, and execute transactions.
 
-### Configuration
+### Frontend Routes
 
-- Environment Variables:
-     * Ensure all required environment variables are set in the .env files in both the backend and frontend directories.
-    ```
-     CONFIG=development  # or prod
-     FRONTEND_PORT=3000
-     BACKEND_PORT=5000
-     SECRET_KEY=your_secret_key
-     SESSION_SECRET=your_session_secret
-     SIGNUP_PASSCODE=your_signup_passcode
-     BACKEND_URL=http://localhost:5000  # Use the appropriate URL for your environment
-     DATABASE_URI=mongodb://localhost:27017/gourdstocks
-    ```
+#### Authentication
+
+| HTTP Method | Route       | Description |
+|-------------|-------------|-------------|
+| GET         | /auth/signup   | Render the signup page. |
+| POST        | /auth/signup   | Handle signup requests. |
+| GET         | /auth/signin   | Render the signin page. |
+| POST        | /auth/signin   | Handle signin requests. |
+| GET         | /auth/logout   | Log the user out and clear the session. |
+
+#### Main Pages
+
+| HTTP Method | Route       | Description |
+|-------------|-------------|-------------|
+| GET         | /           | Render the homepage (requires login). |
+| GET         | /about      | Render the about page (requires login). |
+
+#### Portfolio
+
+| HTTP Method | Route       | Description |
+|-------------|-------------|-------------|
+| GET         | /portfolio/balance      | Fetch the user's balance. |
+| GET         | /portfolio/assets_value | Fetch the user's total assets value. |
+| GET         | /portfolio/stocks       | Fetch the user's portfolio stocks. |
+
+#### Stocks
+
+| HTTP Method | Route       | Description |
+|-------------|-------------|-------------|
+| GET         | /stocks     | Fetch all available stocks and render the stocks page. |
+
+#### Trading
+
+| HTTP Method | Route       | Description |
+|-------------|-------------|-------------|
+| GET         | /trade      | Render the trade page, fetch portfolio and balance data. |
+
+#### Leaderboard
+
+| HTTP Method | Route       | Description |
+|-------------|-------------|-------------|
+| GET         | /leaderboard | Render the leaderboard page. |
+
+---
+
+## Setting Up the Project
+
+### Backend
+
+1. Navigate to the backend/ directory.
+   ` cd backend `
+
+2. Install the dependencies:
+   ` pip install -r requirements.txt `
+
+3. Set up environment variables by creating a .env file:
+   ` ` env
+   DATABASE_URI=mongodb://mongo:27017/gourdstocks
+   SECRET_KEY=your_secret_key
+   LOG_LEVEL=DEBUG
+   ` `
+
+4. Run the backend:
+   ` python run.py `
+
+### Frontend
+
+1. Navigate to the frontend/ directory:
+   ` cd frontend `
+
+2. Install the dependencies:
+   ` npm install `
+
+3. Set up environment variables in .env:
+   ` ` env
+   CONFIG=development
+   SECRET_KEY=your_secret_key
+   SESSION_SECRET=your_session_secret
+   SIGNUP_PASSCODE=your_signup_passcode
+   ` `
+
+4. Run the frontend:
+   ` npm start `
+
+---
+
+## Docker Setup
+
+Both the backend and frontend are Dockerized, making it easy to set up and run the project in containers.
+
+1. **Build and Start the Backend and Frontend Containers**:
+   ` docker-compose up --build `
+
+2. **Access the Application**:
+   - Backend API: ` http://localhost:5000 `
+   - Frontend: ` http://localhost:3000 `
+
+---
+
+## Scheduled Tasks
+
+The backend uses Celery with Redis as the message broker to schedule periodic tasks like updating stock prices every hour.
+
+- **Updating Stock Prices**: The stock prices are updated based on the live data fetched from Google Trends, which simulates real-time market changes.
+
+---
+
+## Error Handling and Logging
+
+Both the frontend and backend log errors using morgan and logging respectively.
+
+- **Backend Logs**: Stored in /logs/app.log.
+- **Frontend Logs**: Displayed in the console using morgan.
+
+Error messages and stack traces are printed to the logs, making it easy to debug issues.
+
+---
