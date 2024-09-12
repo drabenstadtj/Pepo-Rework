@@ -101,3 +101,6 @@ def update_stock_prices():
             }
         )
     print("Stock prices updated.")
+
+if __name__ == "__main__":
+    update_stock_prices()
