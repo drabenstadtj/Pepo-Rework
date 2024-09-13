@@ -11,7 +11,7 @@ block content
     h1 Trade
     .welcome-transactions-container
       .welcome-container
-        h3 Welcome, #{user}
+        h3 Welcome, #{user.username}
         if balance
           h3 Liquid Assets: $<span id="balance"></span>
           h3 Invested Assets: $<span id="investment"></span>

@@ -25,7 +25,7 @@ router.get('/', requireLogin, attachToken, async (req, res) => {
     const balance = balanceResponse.data;
     const assets_value = assetsValueResponse.data;
     
-    res.render('trade', { user: req.session.user.username, portfolio, balance, assets_value, token });
+    res.render('trade', { user: req.session.user, portfolio, balance, assets_value, token });
   } catch (error) {
     console.error('Trade fetch error:', error);
     res.status(500).send("Internal Server Error");

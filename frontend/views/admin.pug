@@ -5,3 +5,7 @@ block content
     h1 Admin Dashboard
     p Welcome, #{user.username}, to the admin panel!
     p Hellos
+
+    // Button to trigger adding the tester entry
+    form(method='POST', action='/admin/add-tester')
+      button(type='submit') Add Tester Entry to DB

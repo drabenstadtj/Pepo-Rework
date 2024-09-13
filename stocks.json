@@ -1,0 +1,700 @@
+[{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100ce"
+  },
+  "name": "Jingle Jam Tunes",
+  "symbol": "CJJT",
+  "sector": "Christmas Music",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100cf"
+  },
+  "name": "Pumpkin Patch Pictures",
+  "symbol": "CPPP",
+  "sector": "Halloween Movies",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d0"
+  },
+  "name": "Polaris Pictures",
+  "symbol": "CPPI",
+  "sector": "Christmas Movies",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d1"
+  },
+  "name": "All Star Pigskin Classic",
+  "symbol": "ASPC",
+  "sector": "American Football",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d2"
+  },
+  "name": "Freddy Fear's Hay Rides",
+  "symbol": "FFHR",
+  "sector": "Hay Rides",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d3"
+  },
+  "name": "Freddy Fear's Scary Stories",
+  "symbol": "FFSS",
+  "sector": "Scary Stories",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d4"
+  },
+  "name": "Freddy Fear's House of Scares",
+  "symbol": "FFHS",
+  "sector": "Haunted Attractions",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d5"
+  },
+  "name": "Freddy Fear's Outfitters",
+  "symbol": "FFEO",
+  "sector": "Halloween Costumes",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d6"
+  },
+  "name": "Freddy Fear's Pumpkin Patch",
+  "symbol": "FFPP",
+  "sector": "Pumpkin Patches",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d7"
+  },
+  "name": "Granola Apparel Flannel",
+  "symbol": "GRAF",
+  "sector": "Flannel",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d8"
+  },
+  "name": "Granola Apparel Sweaters",
+  "symbol": "GRAS",
+  "sector": "Sweaters",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100d9"
+  },
+  "name": "Huntington Sweetery Candy Corn",
+  "symbol": "HSCC",
+  "sector": "Candy Corn",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100da"
+  },
+  "name": "Huntington Sweetery Candy and Taffy",
+  "symbol": "HSCT",
+  "sector": "Candy",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100db"
+  },
+  "name": "Trust Brewing Cozy Mug Cocoa",
+  "symbol": "TBCM",
+  "sector": "Hot chocolate",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100dc"
+  },
+  "name": "Fall Flavors Ferments",
+  "symbol": "LFFF",
+  "sector": "Beer",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100dd"
+  },
+  "name": "Mama Dolce's Green Gobble Tofurkey",
+  "symbol": "MDGG",
+  "sector": "Tofurkey",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100de"
+  },
+  "name": "Mama Dolce's Cannery",
+  "symbol": "MMCA",
+  "sector": "Soups and Stews",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100df"
+  },
+  "name": "Mama Dolce's Ham Hocks",
+  "symbol": "MDHH",
+  "sector": "Ham",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e0"
+  },
+  "name": "Tri-State Farmer's Market",
+  "symbol": "TSFM",
+  "sector": "Farmer's Market",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e1"
+  },
+  "name": "Mama Dolce's Apple Pies",
+  "symbol": "MDAP",
+  "sector": "Apple Pie",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e2"
+  },
+  "name": "Mama Dolce's Gallopavo Turkeys",
+  "symbol": "MDGT",
+  "sector": "Turkey",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e3"
+  },
+  "name": "Sugar and Spice Pumpkin Pies",
+  "symbol": "SSPP",
+  "sector": "Pumpkin Pie",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e4"
+  },
+  "name": "Squirrel Scrounger Wild Acorns",
+  "symbol": "MSSA",
+  "sector": "Acorns",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e5"
+  },
+  "name": "Top Pop's Pawpaws",
+  "symbol": "MTPP",
+  "sector": "Pawpaws",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e6"
+  },
+  "name": "McNeary's Thorny Harvest",
+  "symbol": "MTHH",
+  "sector": "Blackberries",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e7"
+  },
+  "name": "Northeastern Harvest Maple Syrup",
+  "symbol": "MNES",
+  "sector": "Maple Syrup",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e8"
+  },
+  "name": "Questionable Morels Wild Mushrooms",
+  "symbol": "MQWM",
+  "sector": "Mushrooms",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100e9"
+  },
+  "name": "Shaver's Quality Cucurbits",
+  "symbol": "SFQC",
+  "sector": "Cucumber",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100ea"
+  },
+  "name": "Shaver's Squooshed Squash",
+  "symbol": "SFSS",
+  "sector": "Squash",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100eb"
+  },
+  "name": "Huitlacoche Corn Mazes",
+  "symbol": "SFCM",
+  "sector": "Corn Mazes",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100ec"
+  },
+  "name": "Old Brome Scarecrows",
+  "symbol": "SFOB",
+  "sector": "Scarecrows",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100ed"
+  },
+  "name": "Shaver's Tubers",
+  "symbol": "SFSP",
+  "sector": "Sweetpotato",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100ee"
+  },
+  "name": "Tiny Tots Decorative Gourds",
+  "symbol": "SFTT",
+  "sector": "Decorative Gourds",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100ef"
+  },
+  "name": "Gravity's Rainbow Falling Leaves",
+  "symbol": "SOFL",
+  "sector": "Falling Leaves",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f0"
+  },
+  "name": "Let's Get Lost Hiking Trails",
+  "symbol": "SOHT",
+  "sector": "Hiking",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f1"
+  },
+  "name": "Smokey's Leef Peepin' Phenomena",
+  "symbol": "SOLP",
+  "sector": "Fall Foliage",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f2"
+  },
+  "name": "Strange Brew Trading Co.",
+  "symbol": "TFSB",
+  "sector": "Tea",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f3"
+  },
+  "name": "Ray of Sun Goldenrod",
+  "symbol": "TFGR",
+  "sector": "Goldenrod",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f4"
+  },
+  "name": "Little Mouse Scented Candles",
+  "symbol": "TFSC",
+  "sector": "Scented Candles",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f5"
+  },
+  "name": "Topolina Deathday Blooms",
+  "symbol": "TFDB",
+  "sector": "Marigolds",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f6"
+  },
+  "name": "Ray of Sun Sunflowers",
+  "symbol": "TFSF",
+  "sector": "Sunflowers",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f7"
+  },
+  "name": "Leopold Bottling Grog in a Nog",
+  "symbol": "LBGN",
+  "sector": "Egg Nog",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f8"
+  },
+  "name": "Trust Brewing Spiced Pumpkin Latte",
+  "symbol": "TBCP",
+  "sector": "Pumpkin Spice Coffee",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100f9"
+  },
+  "name": "Zahut's Zea Mays Corn",
+  "symbol": "ZFZM",
+  "sector": "Corn",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100fa"
+  },
+  "name": "Zahut's Oxycoccus Cranberries",
+  "symbol": "ZFOC",
+  "sector": "Cranberries",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100fb"
+  },
+  "name": "Zahut's Crisp Munch Apples",
+  "symbol": "ZFCM",
+  "sector": "Apples",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100fc"
+  },
+  "name": "Zahut's Liquid Gold Apple Cider",
+  "symbol": "ZFLG",
+  "sector": "Apple cider",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100fd"
+  },
+  "name": "Zahut Farms Pepos for Pies",
+  "symbol": "ZFPP",
+  "sector": "Pie Pumpkin",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100fe"
+  },
+  "name": "Zahut Farms Friendly Firs",
+  "symbol": "ZFFF",
+  "sector": "Christmas Trees",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+},
+{
+  "_id": {
+    "$oid": "66e3767d7ffee81aae7100ff"
+  },
+  "name": "Zahut Farms Pepos for Carving",
+  "symbol": "ZFPC",
+  "sector": "Carving Pumpkin",
+  "price": 100,
+  "volume": 100000,
+  "high": 100,
+  "low": 100,
+  "last_update": "2024-05-28 09:00:00",
+  "change": 0
+}]
