@@ -1,6 +1,21 @@
-extends layout 
+extends layout
 
-block content 
+block content
   .container
     h1 Welcome to the Pepo Stock Exchange
-      
+
+    if news && news.length
+      .news-grid
+        each article in news
+          .news-card
+            if article.thumbnail
+              img.news-thumbnail(src=article.thumbnail, alt=article.title)
+            .news-content
+              h3.news-title #{article.title}
+              p.news-body #{article.content}
+              //- Convert the timestamp to a Date object before calling toLocaleDateString
+              p.news-meta Written by: #{article.author} on #{new Date(article.timestamp).toLocaleDateString()}
+              if article.isFeatured
+                span.news-badge Featured
+    else
+      p No news articles available.

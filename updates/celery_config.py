@@ -8,11 +8,13 @@ app = Celery('tasks', broker='redis://redis:6379/0', backend='redis://redis:6379
 app.conf.beat_schedule = {
     'update-stock-prices': {
         'task': 'tasks.update_stock_prices',
-        'schedule': crontab(minute='*/10', hour='9-16'),  # Every 10 minutes between 9 AM and 5 PM
+        'schedule': crontab(minute='*/10')
+        #'schedule': crontab(minute='*/10', hour='9-16'),  # Every 10 minutes between 9 AM and 5 PM
     },
     'store-live-interest-data': {
         'task': 'tasks.store_live_interest_data',
-        'schedule': crontab(minute='*/10', hour='9-16'),  # Every 10 minutes between 9 AM and 5 PM
+        'schedule': crontab(minute='*/10')
+        #'schedule': crontab(minute='*/10', hour='9-16'),  # Every 10 minutes between 9 AM and 5 PM
     },
 }
 

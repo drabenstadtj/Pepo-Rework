@@ -47,3 +47,7 @@ block content
           document.getElementById('trendForm').action = `/admin/stocks/${selectedStock.symbol}/update_trend`;
         }
       });
+
+    // Button to trigger adding the tester entry
+    form(method='POST', action='/admin/add-tester')
+      button(type='submit') Add Tester Entry to DB

@@ -20,17 +20,18 @@ logging_config = {
             'level': LOG_LEVEL,
             'class': 'logging.StreamHandler',
             'formatter': 'standard',
-        },
-        'file': {
-            'level': LOG_LEVEL,
-            'class': 'logging.FileHandler',
-            'filename': 'logs/app.log',
-            'formatter': 'standard',
-        },
+        }
+        # ,
+        # 'file': {
+        #     'level': LOG_LEVEL,
+        #     'class': 'logging.FileHandler',
+        #     'filename': 'logs/app.log',
+        #     'formatter': 'standard',
+        # },
     },
     'loggers': {
         '': {  # root logger
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': LOG_LEVEL,
             'propagate': True,
         },

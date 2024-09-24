@@ -291,3 +291,82 @@ main {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* General container for the news articles */
+.news-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Grid for news cards */
+.news-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Individual news card */
+.article-card {
+  background-color: #f2e1d9;
+  border: 1px solid #8c6e61;
+  border-radius: 8px;
+  padding: 15px;
+  width: calc(33.333% - 20px); /* 3 cards per row with a 20px gap */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.article-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Thumbnail image */
+.article-thumbnail {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* Title of the article */
+.article-title {
+  font-size: 1.5em;
+  color: #735c54;
+  margin-bottom: 10px;
+}
+
+/* Content of the article */
+.article-body {
+  font-size: 1em;
+  color: #6e5e55;
+  margin-bottom: 15px;
+}
+
+/* Meta information (author, date) */
+.article-meta {
+  font-size: 0.9em;
+  color: #8c6e61;
+}
+
+/* Featured badge */
+.featured-badge {
+  background-color: #28a745;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.85em;
+}
+
+/* Media queries to handle responsiveness */
+@media (max-width: 768px) {
+  .article-card {
+    width: calc(50% - 20px); /* 2 cards per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .article-card {
+    width: 100%; /* Full-width cards on very small screens */
+  }
+}

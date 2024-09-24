@@ -6,7 +6,7 @@ import time
 import random
 
 # Setup MongoDB
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+client = pymongo.MongoClient("mongodb://mongo:27017/")
 db = client['gourdstocks']
 trends_collection = db['trends']
 stocks_collection = db['stocks']
