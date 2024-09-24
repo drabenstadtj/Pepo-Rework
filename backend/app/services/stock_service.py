@@ -25,6 +25,21 @@ class StockService:
         except Exception as e:
             logger.error(f"Error fetching all stocks: {e}")
             raise e
+    
+    @staticmethod
+    def get_all_stock_details():
+        """
+        Fetch all stocks and their volatility factor and trend direction.
+
+        Returns:
+            list: A list of all stocks with their symbol, volatility, and trend direction.
+        """
+        try:
+            stocks_cursor = mongo.db.stocks.find({}, {"symbol": 1, "volatility_factor": 1, "trend_direction": 1})
+            return [{'_id': str(stock['_id']), 'symbol': stock['symbol'], 'volatility_factor': stock.get('volatility_factor', 1.0), 'trend_direction': stock.get('trend_direction', 0.0)} for stock in stocks_cursor]
+        except Exception as e:
+            logger.error(f"Error fetching all stock details: {e}")
+            raise e
 
     @staticmethod
     def get_stock_price(stock_symbol):

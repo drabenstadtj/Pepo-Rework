@@ -12,18 +12,24 @@ bp = Blueprint('stocks', __name__, url_prefix='/stocks')
 # Apply CORS
 CORS(bp, supports_credentials=True)
 
-@bp.route('/', methods=['GET'])
+@bp.route('/list', methods=['GET'])
 def get_stocks():
     """
     Fetch all stocks.
-    
+
     Returns a list of all stocks in the database.
     """
     try:
         logger.info("Fetching all stocks from the database")
+        # Call the StockService to fetch all stocks
         stocks = StockService.get_all_stocks()
-        logger.info(f"Successfully fetched {len(stocks)} stocks from the database")
-        return jsonify(stocks), 200
+
+        if stocks:
+            logger.info(f"Successfully fetched {len(stocks)} stocks from the database")
+            return jsonify(stocks), 200
+        else:
+            logger.warning("No stocks found in the database")
+            return jsonify({"message": "No stocks found"}), 404
     except Exception as e:
         logger.error(f"Error fetching stocks: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
