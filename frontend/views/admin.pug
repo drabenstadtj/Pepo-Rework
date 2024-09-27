@@ -4,7 +4,49 @@ block content
   .container
     h1 Admin Dashboard
     p Welcome, #{user.username}, to the admin panel!
-    p Hellos
+
+    form#volatilityForm(method="POST")
+      div
+        label(for="stock_selector") Select Stock:
+        select#stock_selector(name="symbol")
+          option(value="") Select a stock
+          each stock in stocks
+            option(value=stock.symbol)= stock.symbol
+
+      // Volatility Factor Update Form
+      div
+        label(for="volatility_factor") Volatility Factor:
+        input#volatility_factor(type="number" step="0.1" name="volatility_factor" value="1.0")
+
+      div
+        button(type="submit") Update Volatility
+
+    form#trendForm(method="POST")
+      // Trend Direction Update Form
+      div
+        label(for="trend_direction") Trend Direction:
+        input#trend_direction(type="number" step="0.1" name="trend_direction" value="0.0")
+        
+      div
+        button(type="submit") Update Trend
+
+    script.
+      // JavaScript to handle form auto-population
+      const stocks = !{JSON.stringify(stocks)};
+      
+      document.getElementById('stock_selector').addEventListener('change', function() {
+        const selectedStock = stocks.find(stock => stock.symbol === this.value);
+        
+        if (selectedStock) {
+          // Populate the fields with the stock's current volatility and trend values
+          document.getElementById('volatility_factor').value = selectedStock.volatility_factor;
+          document.getElementById('trend_direction').value = selectedStock.trend_direction;
+          
+          // Update the form action to dynamically post the update to the correct stock
+          document.getElementById('volatilityForm').action = `/admin/stocks/${selectedStock.symbol}/update_volatility`;
+          document.getElementById('trendForm').action = `/admin/stocks/${selectedStock.symbol}/update_trend`;
+        }
+      });
 
     // Button to trigger adding the tester entry
     form(method='POST', action='/admin/add-tester')

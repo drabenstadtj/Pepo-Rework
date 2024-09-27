@@ -64,43 +64,42 @@ def get_live_interest_data(sector):
         return trend_data['live_interest']
     return 0
 
-
 @app.task
 def update_stock_prices():
     stocks = list(stocks_collection.find())
     for stock in stocks:
         sector_interest = get_live_interest_data(stock['sector'])
-        
-        # Base price change based on sector interest
-        base_price_change = sector_interest * 0.01  # Adjust the multiplier as needed
 
-        # Add random factor to price change
-        random_factor = random.uniform(-0.05, 0.05)  # Random factor between -5% and 5%
-        price_change = base_price_change + (stock['price'] * random_factor)
+        # Base price change based on sector interest
+        base_price_change = sector_interest * 0.01
+
+        # Add random factor adjusted by volatility factor
+        random_factor = random.uniform(-0.05, 0.05) * stock.get('volatility_factor', 1.0)
+
+        # Adjust for trend direction
+        trend_adjustment = stock.get('trend_direction', 0.0)
+
+        # Calculate final price change
+        price_change = base_price_change + (stock['price'] * random_factor) + trend_adjustment
 
         # Calculate new price
         new_price = stock['price'] + price_change
 
-        # Calculate the change as the new price minus the old price
-        if not new_price == stock['price']:
-            change = new_price - stock['price']
-        else:
-            change = stock['change']
-
-        # Update the stock price and other relevant fields
+        # Update stock document in MongoDB
         stocks_collection.update_one(
             {'_id': stock['_id']},
             {
                 '$set': {
                     'price': new_price,
                     'last_update': datetime.now(),
-                    'change': change,
+                    'change': new_price - stock['price'],
                     'low': min(stock['low'], new_price),
                     'high': max(stock['high'], new_price)
                 }
             }
         )
     print("Stock prices updated.")
+
 
 if __name__ == "__main__":
     update_stock_prices()
