@@ -5,7 +5,8 @@ block content
     h1 Admin Dashboard
     p Welcome, #{user.username}, to the admin panel!
 
-    form#volatilityForm(method="POST")
+    // Form for updating volatility
+    form#volatilityForm(method="POST", action="")
       div
         label(for="stock_selector") Select Stock:
         select#stock_selector(name="symbol")
@@ -15,39 +16,93 @@ block content
 
       // Volatility Factor Update Form
       div
-        label(for="volatility_factor") Volatility Factor:
-        input#volatility_factor(type="number" step="0.1" name="volatility_factor" value="1.0")
+        label(for="volatility_factor_slider") Volatility:
+        input#volatility_factor_slider(type="range" min=".01" max="2" step="0.01" value="0.5" name="volatility_slider")
+        
+      // Textbox for displaying the selected volatility
+      input#volatility_factor_input(type="text" name="volatility_factor" readonly value="0.5")
 
       div
         button(type="submit") Update Volatility
 
-    form#trendForm(method="POST")
-      // Trend Direction Update Form
-      div
-        label(for="trend_direction") Trend Direction:
-        input#trend_direction(type="number" step="0.1" name="trend_direction" value="0.0")
-        
-      div
-        button(type="submit") Update Trend
+    h2 Add News Article
 
-    script.
-      // JavaScript to handle form auto-population
-      const stocks = !{JSON.stringify(stocks)};
-      
-      document.getElementById('stock_selector').addEventListener('change', function() {
-        const selectedStock = stocks.find(stock => stock.symbol === this.value);
+    // Form for adding news articles
+    form#newsForm(method="POST", action="/admin/add-news")
+      div
+        label(for="title") Title:
+        input#title(type="text" name="title" placeholder="Enter news title" required)
+
+      div
+        label(for="content") Content:
+        textarea#content(name="content" placeholder="Enter news content" required)
+
+      div
+        label(for="author") Author:
+        input#author(type="text" name="author" placeholder="Enter author name" required)
+
+      div
+        label(for="timestamp") Timestamp:
+        input#timestamp(type="datetime-local" name="timestamp" value="2024-09-13T00:19" required)
+
+      div
+        label(for="isFeatured") Is Featured:
+        input#isFeatured(type="checkbox" name="isFeatured")
+
+      div
+        label(for="thumbnail") Thumbnail URL:
+        input#thumbnail(type="text" name="thumbnail" placeholder="Enter thumbnail URL (optional)" pattern="^(https?:\/\/.*)?$")
         
-        if (selectedStock) {
-          // Populate the fields with the stock's current volatility and trend values
-          document.getElementById('volatility_factor').value = selectedStock.volatility_factor;
-          document.getElementById('trend_direction').value = selectedStock.trend_direction;
-          
-          // Update the form action to dynamically post the update to the correct stock
-          document.getElementById('volatilityForm').action = `/admin/stocks/${selectedStock.symbol}/update_volatility`;
-          document.getElementById('trendForm').action = `/admin/stocks/${selectedStock.symbol}/update_trend`;
+      div
+        button(type="submit") Add News Article
+
+
+    // Display Success or Error Message if they exist
+    if success
+      div.alert.alert-success= success  
+    if error
+      div.alert.alert-danger= error 
+
+    if success || error
+      script.
+        if (history.replaceState) {
+          const url = new URL(window.location);
+          url.searchParams.delete('success');
+          url.searchParams.delete('error');
+          history.replaceState(null, '', url);
+        }
+
+    // JavaScript to update form action and populate volatility values
+    script.
+      const stocks = !{JSON.stringify(stocks)};  // Get stocks data from server
+      const volatilityForm = document.getElementById('volatilityForm');
+      const stockSelector = document.getElementById('stock_selector');
+      const slider = document.getElementById('volatility_factor_slider');
+      const input = document.getElementById('volatility_factor_input');
+      
+      // Update form action and populate slider/input values
+      stockSelector.addEventListener('change', function() {
+        const selectedSymbol = this.value;
+        if (selectedSymbol) {
+          // Find the selected stock in the stocks array
+          const selectedStock = stocks.find(stock => stock.symbol === selectedSymbol);
+          if (selectedStock) {
+            // Update the slider and input with the stock's volatility factor
+            slider.value = selectedStock.volatility_factor;
+            input.value = selectedStock.volatility_factor;
+
+            // Set the form action to the correct update URL
+            volatilityForm.action = `/admin/stocks/${selectedSymbol}/update_volatility`;
+          }
+        } else {
+          // Reset the form action and input fields if no stock is selected
+          volatilityForm.action = '';
+          slider.value = 0.5;
+          input.value = 0.5;
         }
       });
 
-    // Button to trigger adding the tester entry
-    form(method='POST', action='/admin/add-tester')
-      button(type='submit') Add Tester Entry to DB
+      // Sync the slider with the text input
+      slider.addEventListener('input', function() {
+        input.value = slider.value;
+      });

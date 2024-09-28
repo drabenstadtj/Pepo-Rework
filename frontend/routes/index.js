@@ -8,7 +8,7 @@ const router = express.Router();
 
 const getBackendUrl = (endpoint) => `http://pepo_backend:5000${endpoint}`;
 
-router.get('/', async (req, res) => {
+router.get('/', requireLogin, async (req, res) => {
   try {
     // Make the request to your backend to fetch news articles
     const response = await axios.get(getBackendUrl('/news'));

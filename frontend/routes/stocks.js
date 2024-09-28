@@ -10,7 +10,7 @@ const getBackendUrl = (endpoint) => `http://pepo_backend:5000${endpoint}`;
 
 router.get('/', requireLogin, attachToken, async (req, res) => {
   try {
-    const response = await axios.get(getBackendUrl('/stocks'));
+    const response = await axios.get(getBackendUrl('/stocks/list'));
     const stocks = response.data;
     const token = req.session.token;
 

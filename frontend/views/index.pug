@@ -9,7 +9,7 @@ block content
         each article in news
           .news-card
             if article.thumbnail
-              img.news-thumbnail(src=article.thumbnail, alt=article.title)
+              img.news-thumbnail(src=article.thumbnail)
             .news-content
               h3.news-title #{article.title}
               p.news-body #{article.content}

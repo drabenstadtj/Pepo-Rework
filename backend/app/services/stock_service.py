@@ -25,7 +25,7 @@ class StockService:
         except Exception as e:
             logger.error(f"Error fetching all stocks: {e}")
             raise e
-    
+
     @staticmethod
     def get_all_stock_details():
         """

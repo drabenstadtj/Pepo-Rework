@@ -4,9 +4,9 @@ block content
   meta(name="csrf-token" content=token)
   meta(name="balance" content=balance)
   meta(name="assets_value" content=assets_value)
-  script(src="/javascripts/trade.js")
   script.
-    const backendPort = "#{BACKEND_PORT}";
+    const allStocks = !{JSON.stringify(allStocks)}; // Pass all stock symbols to client-side JS
+  script(src="/javascripts/trade.js")
   .container
     h1 Trade
     .welcome-transactions-container
@@ -19,8 +19,9 @@ block content
         form
           .transaction-group
             label(for="stockSymbol" class="transaction-label") Stock Symbol:
-            input(type="text" id="stockSymbol" name="stockSymbol" class="transaction-input" required)
-            button(type="button" id="getPriceButton" style="height: 29px;") Get Price
+            .dropdown
+              input(type="text" id="stockSymbol" name="stockSymbol" class="transaction-input-flex" required autocomplete="off" oninput="filterStocks()")
+              .dropdown-content#dropdown-content
           .transaction-group
             label(for="stockPrice" class="transaction-label") Stock Price:
             input(type="text" id="stockPrice" name="stockPrice" class="transaction-input" readonly)
@@ -47,4 +48,3 @@ block content
                 td= item.stock_symbol
                 td= item.quantity
                 td= item.price.toFixed(2)
-

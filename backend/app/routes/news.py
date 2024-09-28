@@ -62,6 +62,7 @@ def add_news_article():
         title = data.get('title')
         content = data.get('content')
         author = data.get('author')
+        timestamp = data.get('timestamp', None)  # If no timestamp is provided, pass None
         is_featured = data.get('isFeatured', False)
         thumbnail = data.get('thumbnail', None)
 
@@ -70,8 +71,9 @@ def add_news_article():
             return jsonify({"error": "Missing required fields"}), 400
 
         logger.info(f"Adding new news article: {title}")
-        new_article = NewsService.add_news_article(title, content, author, is_featured, thumbnail)
+        new_article = NewsService.add_news_article(title, content, author, is_featured, thumbnail, timestamp)
         return jsonify(new_article), 201
     except Exception as e:
         logger.error(f"Error adding news article: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
+
