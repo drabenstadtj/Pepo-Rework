@@ -1,0 +1,197 @@
+.container {
+  max-width: 800px;
+  overflow-wrap: break-word;
+  margin: auto;
+}
+
+.header-container {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+body {
+  background-color: #fde577;
+}
+
+input {
+  background-color: #fffae5;
+  border: 1px solid #8a8a8a;
+  color: #1a1a1a;
+  margin: 5px 0px;
+  height: 24px;
+}
+
+button {
+  background-color: #c72a40;
+  border: 1px solid #8a8a8a;
+  color: #000000;
+  margin: 5px 5px 0px 0px;
+  height: 24px;
+  min-width: 64px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead th {
+  background-color: #ffdb39;
+  border: 1px solid #8a8a8a;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+tbody td {
+  background-color: #fde577;
+  border: 1px solid #8a8a8a;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.news-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.news-card {
+  padding: 10px;
+}
+
+.news-thumbnail {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
+  margin-top: 4px;
+  border-radius: 5px;
+}
+
+.news-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.news-body-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.news-body {
+  font-size: 14px;
+}
+
+.news-meta {
+  font-size: 12px;
+}
+
+.sidebar {
+  min-width: 240px;
+}
+
+.sidebar h3 {
+  background-color: #c72a40;
+  padding: 0px 2px;
+}
+
+.sidebar p {
+  font-size: 14px;
+  margin: 5px 0 20px 0;
+  line-height: 1.5;
+}
+
+nav.navigation {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+nav.navigation ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+nav.navigation li {
+  margin: 0;
+}
+nav.navigation a {
+  padding: 10px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fffae5;
+  max-height: 200px;
+  width: 160px;
+  overflow-y: auto;
+  border: 1px solid #8a8a8a;
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #1a1a1a;
+  padding: 4px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: hsl(48.4615384615, 100%, 104.9019607843%);
+}
+
+.show {
+  display: block;
+}
+
+.alert-danger {
+  color: red;
+}
+
+.alert-success {
+  color: green;
+}
+
+.trade-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.welcome-container {
+  width: 40%;
+  padding: 10px;
+}
+.welcome-container h3 {
+  margin: 5px 0;
+}
+
+.transaction-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dropdown input {
+  margin-bottom: 0px;
+}
+
+/*# sourceMappingURL=style.css.map */

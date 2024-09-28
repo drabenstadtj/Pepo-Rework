@@ -6,13 +6,17 @@ const requireLogin = (req, res, next) => {
     try {
       const decoded = jwt.verify(req.session.token, config.secretKey);
       req.user = decoded;
-      next();
+      
+      // Add isAdmin flag to the user object (assuming JWT payload contains the role or admin status)
+      req.user.isAdmin = decoded.isAdmin || false;
+
+      next();  // User is logged in and JWT is valid, proceed
     } catch (err) {
       console.error('Token verification error:', err);
       res.redirect('/auth/signin');
     }
   } else {
-    res.redirect('/auth/signin');
+    res.redirect('/auth/signin');  // No session or token, redirect to login
   }
 };
 

@@ -1,0 +1,17 @@
+/* Error: Silent comments aren't allowed in plain CSS.
+ *   ,
+ * 1 | // Base Colors
+ *   | ^^^^^^^^^^^^^^^
+ *   '
+ *   public\scss\style.bak.css 1:1  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Silent comments aren't allowed in plain CSS.\a   \2577 \a 1 \2502  // Base Colors\d\a   \2502  ^^^^^^^^^^^^^^^\a   \2575 \a   public\\scss\\style.bak.css 1:1  root stylesheet";
+}

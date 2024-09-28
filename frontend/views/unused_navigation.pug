@@ -1,0 +1,18 @@
+if user
+    nav.navigation
+        ul
+            li
+                a(href="/") Home
+            li
+                a(href="/stocks") Stocks
+            li
+                a(href="/leaderboard") Leaderboard
+            li
+                a(href='/trade') Trade
+            li
+                a(href="/about") About
+            if user.isAdmin
+                li
+                    a(href="/admin") Dashboard
+            li
+                a(href="/auth/logout") Logout

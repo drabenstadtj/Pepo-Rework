@@ -1,13 +1,17 @@
 const express = require('express');
 const axios = require('axios');
-const isAdmin = require('../middleware/isAdmin');
-const requireLogin = require('../middleware/requireLogin');
+const requireLogin = require('../middleware/requireLogin');  // Combined middleware
 const router = express.Router();
 
 const getBackendUrl = (endpoint) => `http://pepo_backend:5000${endpoint}`;
 
-router.get('/', requireLogin, isAdmin, async (req, res) => {
+// Admin Dashboard Route
+router.get('/', requireLogin, async (req, res) => {
     try {
+        if (!req.user.isAdmin) {
+            return res.status(403).send('Access denied. Admins only.');
+        }
+
         // Fetch all stocks
         const response = await axios.get(getBackendUrl('/stocks/list'));
 
@@ -17,7 +21,7 @@ router.get('/', requireLogin, isAdmin, async (req, res) => {
 
         // Render the admin page with stocks, success, and error messages
         res.render('admin', {
-            user: req.session.user,
+            user: req.user,  // Use req.user from requireLogin middleware
             stocks: response.data,
             success,
             error
@@ -28,8 +32,13 @@ router.get('/', requireLogin, isAdmin, async (req, res) => {
     }
 });
 
-router.post('/stocks/:symbol/update_volatility', isAdmin, async (req, res) => {
+// Update Stock Volatility Route
+router.post('/stocks/:symbol/update_volatility', requireLogin, async (req, res) => {
     try {
+        if (!req.user.isAdmin) {
+            return res.status(403).send('Access denied. Admins only.');
+        }
+
         const { symbol } = req.params;
         const { volatility_factor } = req.body;
 
@@ -45,36 +54,38 @@ router.post('/stocks/:symbol/update_volatility', isAdmin, async (req, res) => {
     }
 });
 
-// Handle the news entry insertion from the form
-router.post('/add-news', isAdmin, async (req, res) => {
+// Add News Article Route
+router.post('/add-news', requireLogin, async (req, res) => {
     try {
-    const { title, content, author, timestamp, isFeatured, thumbnail } = req.body;
+        if (!req.user.isAdmin) {
+            return res.status(403).send('Access denied. Admins only.');
+        }
 
-    // Prepare the data to send to the backend
-    const newsEntry = {
-        title: title.trim(),
-        content: content.trim(),
-        author: author.trim(),
-        timestamp: new Date(timestamp),
-        isFeatured: isFeatured ? true : false, // Convert checkbox value to boolean
-    };
+        const { title, content, author, timestamp, isFeatured, thumbnail } = req.body;
 
-    // Only add the thumbnail if it's provided
-    if (thumbnail && thumbnail.trim()) {
-        newsEntry.thumbnail = thumbnail.trim();
-    }
+        // Prepare the data to send to the backend
+        const newsEntry = {
+            title: title.trim(),
+            content: content.trim(),
+            author: author.trim(),
+            timestamp: new Date(timestamp),
+            isFeatured: !!isFeatured,  // Convert checkbox value to boolean
+        };
 
-  
-      // Send a POST request to the backend to insert the news entry
-      await axios.post(getBackendUrl('/news'), newsEntry);
-  
-      // Redirect back to the admin dashboard with a success message
-      res.redirect('/admin?success=News article added successfully');
+        // Only add the thumbnail if it's provided
+        if (thumbnail && thumbnail.trim()) {
+            newsEntry.thumbnail = thumbnail.trim();
+        }
+
+        // Send a POST request to the backend to insert the news entry
+        await axios.post(getBackendUrl('/news'), newsEntry);
+
+        // Redirect back to the admin dashboard with a success message
+        res.redirect('/admin?success=News article added successfully');
     } catch (error) {
-      console.error("Error adding news article:", error);
-      res.redirect('/admin?error=Failed to add news article');
+        console.error("Error adding news article:", error);
+        res.redirect('/admin?error=Failed to add news article');
     }
 });
-  
 
 module.exports = router;

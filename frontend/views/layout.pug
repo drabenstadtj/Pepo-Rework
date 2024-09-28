@@ -2,14 +2,11 @@ doctype html
 html(lang="en")
   head
     title Pepo Stock Exchange
-    link(rel="stylesheet", href="/stylesheets/style.css")
+    link(rel="stylesheet" href="/css/style.css")
     script(src="https://code.jquery.com/jquery-3.6.0.min.js")
     script.
       window.apiUrl = "#{process.env.API_URL || 'http://localhost:5000'}";
   body
     .header-container
-      include _header 
-      include _clock
-      include _navigation
-    hr
+      include _header
     block content

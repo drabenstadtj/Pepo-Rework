@@ -1,0 +1,422 @@
+// Base Colors
+$base-bg: #f8f9fa; // Light neutral background for readability
+$base-text: #333333; // Dark text for contrast
+$base-text-light: #a5a5a5; // Dark text for contrast
+$base-heading: #212529; // Darker text for headings
+
+// Accent Colors (based on your palette)
+$accent-primary: #ff6c40; // For buttons, links, highlights
+$accent-secondary: #fde577; // Subtle accents like hover effects
+$accent-highlight: #c72a40; // Used for important highlights or warnings
+$accent-dark: #520833; // Darker accents for emphasis on headings or dividers
+$accent-background: #2c112b; // For sections that need to stand out
+
+// Border Colors
+$border-primary: #868686; // For borders and dividers
+$border-secondary: #e5e5e5; // For dividers
+
+// Table Colors
+$table-header: #f0f0f0; // For table headers
+$table-bg: #fff9e5; // For table rows
+
+$color-success: #28a745; // Success color (e.g., positive changes)
+$color-danger: #ff6c40; // Danger color (e.g., errors, warnings)
+
+//jacks stuff
+$button-bg: #ff6c40;
+$button-text: #ffffff;
+
+$input-bg: #ffffff;
+$input-text: #000000;
+
+$table-header: #f0f0f0;
+$table-bg: #fff9e5;
+$table-text: #000000;
+
+$side-bar-header-bg: #f0f0f0;
+$side-bar-text: #000000;
+
+$side-bar-paragraph: #ffffff;
+
+// General Layout
+.container {
+  max-width: 800px;
+  overflow-wrap: break-word;
+  margin: auto;
+}
+
+input {
+  background-color: $input-bg;
+  border: 1px solid $border-primary;
+  color: $input-text;
+}
+
+button {
+  background-color: $button-bg;
+  border: 1px solid $border-primary;
+  color: $button-text;
+}
+
+thead {
+  background-color: $table-header;
+  border: 1px solid $border-primary;
+  color: $table-text;
+}
+
+tbody {
+  background-color: $table-bg;
+  border: 1px solid $border-primary;
+  color: $table-text;
+}
+
+.side-bar-header {
+  background-color: $side-bar-header-bg;
+  border: 1px solid $border-primary;
+  color: $side-bar-text;
+}
+
+.side-bar-paragraph {
+  border: 1px solid $border-primary;
+  color: $side-bar-text;
+}
+
+.header-container {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+// Alerts
+.alert-danger {
+  color: red;
+}
+
+.alert-success {
+  color: green;
+}
+
+// News Layout
+.news-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+// Sidebar
+.sidebar {
+  padding: 10px;
+
+  // Title
+  h3 {
+    background-color: $accent-dark;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    color: $base-heading;
+  }
+
+  // Paragraph
+  p {
+    font-size: 12px;
+    margin: 5px 0 20px 0;
+    line-height: 1.5;
+    color: $base-text;
+  }
+}
+
+.sidebar-section {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+// News Grid
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.news-card {
+  padding: 10px;
+}
+
+// Thumbnail
+.news-thumbnail {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
+  margin-top: 4px;
+  border-radius: 5px;
+}
+
+// News Title
+.news-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: $base-heading;
+}
+
+.news-body-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.news-body {
+  font-size: 14px;
+  color: $base-text; // Dark text color for body
+}
+
+// Meta Information
+.news-meta {
+  font-size: 12px;
+  color: $base-text-light;
+}
+
+// Navigation
+nav.navigation {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    padding: 10px;
+  }
+}
+
+// Table Styles
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  color: $base-text;
+}
+
+table.leaderboard-table thead th,
+table.stocks-table thead th {
+  border: 1px solid $border-primary; // Border
+  background-color: $table-header; // Alternate background
+  padding: 5px;
+  text-align: left;
+  font-weight: bold;
+  color: $base-text;
+}
+
+table.leaderboard-table tbody td,
+table.stocks-table tbody td {
+  border: 1px solid $border-primary;
+  padding: 5px;
+  background-color: $table-bg; // Main background
+}
+
+// Positive & Negative Changes
+.positive-change {
+  color: $color-success;
+}
+
+.negative-change {
+  color: $color-danger;
+}
+
+// Welcome Section
+.welcome-transactions-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.welcome-container {
+  width: 40%;
+  background-color: $base-bg;
+  padding: 10px;
+  border: 1px solid $border-primary; // Border
+
+  h3 {
+    margin: 5px 0;
+    color: $base-heading; // Title color
+  }
+}
+
+.transactions {
+  width: 55%;
+  background-color: $base-bg; // Alternate background
+  padding: 20px;
+  border: 1px solid $border-primary; // Border
+}
+
+// Form Elements
+.transaction-group {
+  margin-bottom: 10px;
+}
+
+.transaction-label {
+  display: block;
+  font-size: 14px;
+  color: $accent-dark; // Text color
+  margin-bottom: 5px;
+}
+
+.transaction-input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid $border-secondary; // Border
+  background-color: $base-bg; // Background
+  color: $base-text;
+}
+
+.transaction-group-flex {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.transaction-input-flex {
+  height: 16.5px;
+  padding: 5px;
+  flex-grow: 1;
+  border: 1px solid $border-secondary; // Border
+  background-color: $base-bg; // Background
+  color: $base-text;
+}
+
+// Buttons
+#getPriceButton {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: $accent-primary; // Accent color
+  border: 1px solid $border-secondary; // Border
+  color: $base-text;
+  cursor: pointer;
+  height: 29px;
+
+  &:hover {
+    background-color: $accent-highlight; // Hover color
+  }
+}
+
+.transaction-button,
+.admin-button {
+  padding: 5px 20px;
+  background-color: $accent-primary; // Accent color
+  border: 1px solid $border-secondary; // Border
+  color: $base-text;
+  cursor: pointer;
+  margin-right: 10px;
+
+  &:hover {
+    background-color: $accent-highlight; // Hover color
+  }
+}
+
+// Portfolio Section
+.portfolio-container {
+  margin-top: 30px;
+}
+
+table.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  color: $base-text;
+}
+
+table.portfolio-table thead th {
+  border: 1px solid $border-primary;
+  background-color: $table-header; // Alternate background
+  padding: 5px;
+  text-align: left;
+  font-weight: bold;
+  color: $base-text;
+}
+
+table.portfolio-table tbody td {
+  border: 1px solid $border-primary;
+  padding: 5px;
+  background-color: $base-bg; // Main background
+}
+
+// Dropdown
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $base-bg; // Background
+  min-width: 437px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid $border-secondary; // Border
+  z-index: 1;
+
+  a {
+    color: $base-text;
+    padding: 4px 16px;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      background-color: $accent-secondary; // Hover background
+    }
+  }
+}
+
+.show {
+  display: block;
+}
+
+// Admin Section
+.admin-form-group {
+  margin: 10px 0px;
+}
+
+.admin-form-input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid $border-secondary; // Border
+  background-color: $base-bg; // Background
+  color: $base-text;
+  box-sizing: border-box;
+}
+
+.admin-form-input-range {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.admin-form-textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid $border-secondary; // Border
+  background-color: $base-bg; // Background
+  color: $base-text;
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.admin-volatility-section {
+  background-color: $base-bg;
+  padding: 20px;
+  border: 1px solid $border-secondary;
+  margin-bottom: 20px;
+}

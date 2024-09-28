@@ -9,34 +9,41 @@ block content
   script(src="/javascripts/trade.js")
   .container
     h1 Trade
-    .welcome-transactions-container
+    .trade-container
       .welcome-container
         h3 Welcome, #{user.username}
         if balance
-          h3 Liquid Assets: $<span id="balance"></span>
-          h3 Invested Assets: $<span id="investment"></span>
-      .transactions
+          strong Liquid Assets: 
+          p $<span id="balance"></span>
+          strong Invested Assets: 
+          p $<span id="investment"></span>
+      .transaction-container
         form
-          .transaction-group
             label(for="stockSymbol" class="transaction-label") Stock Symbol:
             .dropdown
               input(type="text" id="stockSymbol" name="stockSymbol" class="transaction-input-flex" required autocomplete="off" oninput="filterStocks()")
               .dropdown-content#dropdown-content
-          .transaction-group
-            label(for="stockPrice" class="transaction-label") Stock Price:
+
+            label(for="stockPrice" class="transaction-label") Stock Price: 
+            br
             input(type="text" id="stockPrice" name="stockPrice" class="transaction-input" readonly)
-          .transaction-group
+            br
+
             label(for="numberOfShares" class="transaction-label") Number of Shares:
+            br
             input(type="number" id="numberOfShares" name="numberOfShares" step="1" class="transaction-input" min="1")
-          .transaction-group
+            br
+
             label(for="totalPrice" class="transaction-label") Total Price:
+            br
             input(type="text" id="totalPrice" name="totalPrice" class="transaction-input" readonly)
-          .transaction-group
+            br
+
             button(type="button" id="buyButton" class="transaction-button") Buy
             button(type="button" id="sellButton" class="transaction-button") Sell
+
     if portfolio.length
-      .portfolio-container 
-        table.portfolio-table
+        table
           thead
             tr
               th Stock Symbol
