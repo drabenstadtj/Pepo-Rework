@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   frontend:
     container_name: pepo_frontend
@@ -11,9 +11,8 @@ services:
       CONFIG: development
       API_URL: http://localhost:5000
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    command: npm start
+      - .:/app # Mount your local directory to /app inside the container
+    command: npx nodemon --legacy-watch --watch views --watch public --ext js,pug,json,scss server.js
     networks:
       - pepo-network
 
