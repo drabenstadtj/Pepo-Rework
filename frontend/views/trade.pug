@@ -5,53 +5,53 @@ block content
   meta(name="balance" content=balance)
   meta(name="assets_value" content=assets_value)
   script.
-    const allStocks = !{JSON.stringify(allStocks)}; // Pass all stock symbols to client-side JS
+    const allStocks = !{JSON.stringify(allStocks)};
   script(src="/javascripts/trade.js")
-  .container
-    h1 Trade
+  
+  .trade-page
     .trade-container
-      .welcome-container
-        h3 Welcome, #{user.username}
+      .welcome-section
+        h3.welcome-heading Welcome, #{user.username}
         if balance
-          strong Liquid Assets: 
-          p $<span id="balance"></span>
-          strong Invested Assets: 
-          p $<span id="investment"></span>
-      .transaction-container
-        form
-            label(for="stockSymbol" class="transaction-label") Stock Symbol:
-            .dropdown
-              input(type="text" id="stockSymbol" name="stockSymbol" class="transaction-input-flex" required autocomplete="off" oninput="filterStocks()")
-              .dropdown-content#dropdown-content
+          strong.asset-title Liquid Assets: 
+          p.asset-value $<span id="balance"></span>
+          strong.asset-title Invested Assets: 
+          p.asset-value $<span id="investment"></span>
+      .transaction-section
+        form.transaction-form
+          label(for="stockSymbol" class="form-label") Stock Symbol:
+          .dropdown
+            input(type="text" id="stockSymbol" name="stockSymbol" class="dropdown-input" required autocomplete="off" oninput="filterStocks()")
+            .dropdown-content#dropdown-content
 
-            label(for="stockPrice" class="transaction-label") Stock Price: 
-            br
-            input(type="text" id="stockPrice" name="stockPrice" class="transaction-input" readonly)
-            br
+          label(for="stockPrice" class="form-label") Stock Price: 
+          br
+          input(type="text" id="stockPrice" name="stockPrice" class="form-input" readonly)
+          br
 
-            label(for="numberOfShares" class="transaction-label") Number of Shares:
-            br
-            input(type="number" id="numberOfShares" name="numberOfShares" step="1" class="transaction-input" min="1")
-            br
+          label(for="numberOfShares" class="form-label") Number of Shares:
+          br
+          input(type="number" id="numberOfShares" name="numberOfShares" step="1" class="form-input" min="1")
+          br
 
-            label(for="totalPrice" class="transaction-label") Total Price:
-            br
-            input(type="text" id="totalPrice" name="totalPrice" class="transaction-input" readonly)
-            br
+          label(for="totalPrice" class="form-label") Total Price:
+          br
+          input(type="text" id="totalPrice" name="totalPrice" class="form-input" readonly)
+          br
 
-            button(type="button" id="buyButton" class="transaction-button") Buy
-            button(type="button" id="sellButton" class="transaction-button") Sell
+          button(type="button" id="buyButton" class="form-button") Buy
+          button(type="button" id="sellButton" class="form-button") Sell
 
     if portfolio.length
-        table
+        table.portfolio-table
           thead
             tr
-              th Stock Symbol
-              th Quantity
-              th Price
-          tbody
+              th.portfolio-header Stock Symbol
+              th.portfolio-header Quantity
+              th.portfolio-header Price
+          tbody.portfolio-body
             each item in portfolio
               tr
-                td= item.stock_symbol
-                td= item.quantity
-                td= item.price.toFixed(2)
+                td.portfolio-data= item.stock_symbol
+                td.portfolio-data= item.quantity
+                td.portfolio-data= item.price.toFixed(2)

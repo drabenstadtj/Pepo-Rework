@@ -1,23 +1,23 @@
 extends layout
 
 block content
-  .container
-    h1 Sign Up
-    form(action="/auth/signup", method="POST")
-      input(type="text", name="username", id="username", placeholder="Username", required)
+  .signup-container
+    h1.signup-title Sign Up
+    form.signup-form(action="/auth/signup", method="POST")
+      input.form-input(type="text", name="username", id="signup-username", placeholder="Username", required)
       br
-      input(type="password", name="password", id="password", placeholder="Password", required)
+      input.form-input(type="password", name="password", id="signup-password", placeholder="Password", required)
       br
       if isProduction
-        input(type="password" name="passcode", placeholder="Passcode" required)
+        input.form-input(type="password", name="passcode", id="passcode", placeholder="Passcode", required)
         if error == 'Incorrect passcode'
           p.error-message Incorrect passcode
       if error == 'Username is already taken'
         p.error-message Username is already taken
       if error == 'Username or Password cannot contain spaces'
         p.error-message Username or Password cannot contain spaces
-      button(type="submit") Sign Up
+      button.submit-button(type="submit") Sign Up
 
-    h1 Sign In 
-    form(action='/auth/signin', method='get')
-      button(type='submit') Sign In
+    h1.signin-title Sign In 
+    form.signin-form(action='/auth/signin', method='get')
+      button.submit-button(type='submit') Sign In

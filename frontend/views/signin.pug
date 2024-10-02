@@ -1,27 +1,27 @@
-//- doctype html
-//- html(lang="en")
 extends layout
 
 block content
-  .container
-    h1 Sign In
-    form(action='/auth/signin', method='post', onsubmit='return trimInput()')
-      div
-        input(type='text', id='username', name='username', placeholder='Username', required)
-      div
-        input(type='password', id='password', name='password', placeholder='Password', required)
-      div
+  .signin-container
+    h1.signin-title Sign In
+    form.signin-form(action='/auth/signin', method='post', onsubmit='return trimInput()')
+      .form-group
+        input.form-input(type='text', id='signin-username', name='username', placeholder='Username', required)
+      .form-group
+        input.form-input(type='password', id='signin-password', name='password', placeholder='Password', required)
+      .form-group
         if error
-          div.alert.alert-danger
+          .alert.alert-danger
             p #{error}
-      button(type='submit') Sign In
-    h1 Sign Up 
-    form(action='/auth/signup', method='get')
-      button(type='submit') Sign Up
+      button.submit-button(type='submit') Sign In
+
+    h1.signup-title Sign Up 
+    form.signup-form(action='/auth/signup', method='get')
+      button.submit-button(type='submit') Sign Up
+      
   script.
     function trimInput() {
-      var username = document.getElementById('username');
-      var password = document.getElementById('password');
+      var username = document.getElementById('signin-username');
+      var password = document.getElementById('signin-password');
       if (username && password) {
         username.value = username.value.trim();
         password.value = password.value.trim();

@@ -1,64 +1,65 @@
 extends layout
 
 block content
-  .news-layout
-    .sidebar
-      h3 LEAF IT TO THE MARKET
-      p Fall into Profit
-      p Don't let your portfolio fall behind! Keep an eye on the hottest fall stocks. Spoiler: Pumpkin Spice Futures are on the rise!
 
-      h3 GATHER YOUR GAINS
-      p Harvest Your Investments
-      p Like a well-timed apple harvest, your investments should mature in the crisp autumn air. Ready for a bumper crop?
+  .news-page
+    .news-sidebar
+      h3.sidebar-heading LEAF IT TO THE MARKET
+      p.sidebar-text Fall into Profit
+      p.sidebar-text Don't let your portfolio fall behind! Keep an eye on the hottest fall stocks. Spoiler: Pumpkin Spice Futures are on the rise!
 
-      h3 MARKET HOTSPOT
-      p Maple Syrup Surges
-      p Analysts say the demand for maple syrup is tapping out record highs. The sweet stock you didn’t know you needed.
+      h3.sidebar-heading GATHER YOUR GAINS
+      p.sidebar-text Harvest Your Investments
+      p.sidebar-text Like a well-timed apple harvest, your investments should mature in the crisp autumn air. Ready for a bumper crop?
 
-      h3 AUTUMN BUZZ
-      p Golden Leaves, Golden Returns
-      p With leaves turning gold, some investors are betting on ‘eco-tourism’ stocks. Will you take the scenic route to profit?
+      h3.sidebar-heading MARKET HOTSPOT
+      p.sidebar-text Maple Syrup Surges
+      p.sidebar-text Analysts say the demand for maple syrup is tapping out record highs. The sweet stock you didn’t know you needed.
+
+      h3.sidebar-heading AUTUMN BUZZ
+      p.sidebar-text Golden Leaves, Golden Returns
+      p.sidebar-text With leaves turning gold, some investors are betting on ‘eco-tourism’ stocks. Will you take the scenic route to profit?
 
     .news-content
-      h1 Welcome to the Pepo Stock Exchange
+      h1.news-title Welcome to the Pepo Stock Exchange
       if news && news.length
         .news-grid
           each article in news
             .news-card
-              .news-content
-                h3.news-title #{article.title}
-                .news-body-wrapper
+              .card-content
+                h3.card-title #{article.title}
+                .card-body-wrapper
                   if article.thumbnail
-                    img.news-thumbnail(src=article.thumbnail)
-                  .news-body
-                    p #{article.content}
-                    p.news-meta Written by: #{article.author} on #{new Date(article.timestamp).toLocaleDateString()}
+                    img.card-thumbnail(src=article.thumbnail)
+                  .card-body
+                    p.card-text #{article.content}
+                    p.card-meta Written by: #{article.author} on #{new Date(article.timestamp).toLocaleDateString()}
                 if article.isFeatured
-                  span.news-badge Featured
+                  span.card-badge Featured
       else
-        p No news articles available.
+        p.no-news-msg No news articles available.
 
-    .sidebar
-      h3 CRUNCH THE NUMBERS
-      p Acorn Investments
-      p Start small, grow tall! Acorn-based stocks are the talk of the forest. Squirrels aren’t the only ones investing this season.
+    .news-sidebar
+      h3.sidebar-heading CRUNCH THE NUMBERS
+      p.sidebar-text Acorn Investments
+      p.sidebar-text Start small, grow tall! Acorn-based stocks are the talk of the forest. Squirrels aren’t the only ones investing this season.
 
-      h3 BLAZE OF GLORY
-      p Pumpkin Market Panic
-      p Rumor has it that last year's Pumpkin Stock bubble is back. But remember, only the most daring investors carve profits.
+      h3.sidebar-heading BLAZE OF GLORY
+      p.sidebar-text Pumpkin Market Panic
+      p.sidebar-text Rumor has it that last year's Pumpkin Stock bubble is back. But remember, only the most daring investors carve profits.
 
-      h3 SEASONAL SENSATIONS
-      p Fall is the New Bull
-      p Forget bears, this market is in full autumn bloom. The wind of change is blowing, so rake in those profits before winter arrives!
+      h3.sidebar-heading SEASONAL SENSATIONS
+      p.sidebar-text Fall is the New Bull
+      p.sidebar-text Forget bears, this market is in full autumn bloom. The wind of change is blowing, so rake in those profits before winter arrives!
 
-      h3 GOLDEN HUES, GOLDEN PROFITS
-      p Red Leaf Analytics
-      p Autumn color changes might be driven by biology, but your portfolio can change with just a few clicks. Ready to rake it in?
+      h3.sidebar-heading GOLDEN HUES, GOLDEN PROFITS
+      p.sidebar-text Red Leaf Analytics
+      p.sidebar-text Autumn color changes might be driven by biology, but your portfolio can change with just a few clicks. Ready to rake it in?
 
-      h3 WILD WINDS AHEAD
-      p Blustery Market Forecast
-      p Experts predict a windfall of gains, but be wary—just like fall weather, the market could turn chilly without warning.
+      h3.sidebar-heading WILD WINDS AHEAD
+      p.sidebar-text Blustery Market Forecast
+      p.sidebar-text Experts predict a windfall of gains, but be wary—just like fall weather, the market could turn chilly without warning.
 
-      h3 IT'S A BEAR OF A SEASON
-      p Bear Markets? Hibernate Later!
-      p Winter might bring bears, but right now, the fall market is roaring. Time to cash in before hibernation begins.
+      h3.sidebar-heading IT'S A BEAR OF A SEASON
+      p.sidebar-text Bear Markets? Hibernate Later!
+      p.sidebar-text Winter might bring bears, but right now, the fall market is roaring. Time to cash in before hibernation begins.

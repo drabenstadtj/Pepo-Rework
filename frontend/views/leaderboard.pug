@@ -1,19 +1,20 @@
 extends layout
 
 block content
-  .container
-    h1 Leaderboard
-    table.leaderboard-table
-      thead
-        tr
-          th Rank
-          th Name
-          th Title
-          th Liquid Assets
-          th Invested Assets
-          th Net Worth
-      tbody#leaderboard-body
-        // The table body will be populated dynamically
-  script.
-    const backendPort = "#{BACKEND_PORT}";
-  script(src="/javascripts/leaderboard.js")
+  .leaderboard-page
+    .leaderboard-container
+      h1.page-title Leaderboard
+      table.leaderboard-table
+        thead
+          tr
+            th.table-header Rank
+            th.table-header Name
+            th.table-header Title
+            th.table-header Liquid Assets
+            th.table-header Invested Assets
+            th.table-header Net Worth
+        tbody#leaderboard-body
+          // The table body will be populated dynamically
+      script.
+        const backendPort = "#{BACKEND_PORT}";
+      script(src="/javascripts/leaderboard.js")
