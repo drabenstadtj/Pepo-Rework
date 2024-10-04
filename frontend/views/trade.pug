@@ -8,16 +8,36 @@ block content
     const allStocks = !{JSON.stringify(allStocks)};
   script(src="/javascripts/trade.js")
   
-  .trade-page
+  .page
+    h1.title Trade
     .trade-container
-      .welcome-section
-        h3.welcome-heading Welcome, #{user.username}
+      .trade-column
+        h3 Welcome, #{user.username}
         if balance
           strong.asset-title Liquid Assets: 
           p.asset-value $<span id="balance"></span>
           strong.asset-title Invested Assets: 
           p.asset-value $<span id="investment"></span>
-      .transaction-section
+
+      
+      if portfolio.length
+        .trade-column
+          h3 Portfolio
+          table(style="margin:0;").portfolio-table
+            thead
+              tr
+                th.portfolio-header Stock Symbol
+                th.portfolio-header Quantity
+                th.portfolio-header Price
+            tbody.portfolio-body
+              each item in portfolio
+                tr
+                  td.portfolio-data= item.stock_symbol
+                  td.portfolio-data= item.quantity
+                  td.portfolio-data= item.price.toFixed(2)
+
+      .trade-column
+        h3 Trade
         form.transaction-form
           label(for="stockSymbol" class="form-label") Stock Symbol:
           .dropdown
@@ -42,16 +62,4 @@ block content
           button(type="button" id="buyButton" class="form-button") Buy
           button(type="button" id="sellButton" class="form-button") Sell
 
-    if portfolio.length
-        table.portfolio-table
-          thead
-            tr
-              th.portfolio-header Stock Symbol
-              th.portfolio-header Quantity
-              th.portfolio-header Price
-          tbody.portfolio-body
-            each item in portfolio
-              tr
-                td.portfolio-data= item.stock_symbol
-                td.portfolio-data= item.quantity
-                td.portfolio-data= item.price.toFixed(2)
+    

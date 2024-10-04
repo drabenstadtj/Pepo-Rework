@@ -1,231 +1,147 @@
-@use "sass:color";
-//  Colors
-$main: #ecc878;
-$main-light: color.adjust($main, $lightness: 10%);
-$main-dark: color.adjust($main, $lightness: -10%);
-
-$accent-color: #cc7e00;
-
-$header-bg: #bd3b1f;
-
-$text-small: 14px;
-$border-primary: #000000;
-
-//
-// General Layout
-//
-.container {
-  max-width: 800px;
-  overflow-wrap: break-word;
-  margin: auto;
+/* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+/* Header Container */
 .header-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
   text-align: center;
 }
 
-/* Form Spacing */
-.admin-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Spacing between form groups */
+.news-page,
+.stocks-page,
+.leaderboard-page,
+.about-page,
+.trade-page {
+  max-width: 1000px;
+  min-width: 600px;
 }
 
-/* Form group layout */
-.admin-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Spacing between label and input */
-}
-
-/* Admin Volatility Section */
-.admin-volatility-section {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Spacing between input and controls */
-}
-
-/* Inline arrangement for volatility factor slider and input */
-#volatility_factor_slider,
-#volatility_factor_input {
-  max-width: 300px;
-}
-
-#volatility_factor_input {
-  margin-top: 5px;
-}
-
-//
-// Tables
-//
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-thead th {
-  border: 1px solid black;
-  text-align: center;
-}
-
-tbody td {
-  border: 1px solid black;
-  text-align: center;
-}
-
-//
-// News
-//
-
-.news-layout {
-  display: grid;
-  grid-template-columns: 200px 1fr 200px;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 20px auto;
-}
-
-.news-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.news-card {
-  padding: 10px;
-}
-
-.news-thumbnail {
-  width: 100px;
-  height: auto;
-  margin: 10px;
-  margin-top: 4px;
-  border-radius: 5px;
-}
-
-.news-title {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.news-body-wrapper {
-  display: flex;
-  align-items: flex-start;
-  margin-top: 10px;
-}
-
-.news-meta {
-  font-size: 12px;
-}
-
-//
-// Sidebar
-//
-
-.sidebar h3 {
-  padding: 0px 2px;
-}
-
-.sidebar p {
-  margin: 5px 0 20px 0;
-}
-
-//
-//Navigation
-//
-
+/* Navigation */
 nav.navigation {
   padding: 10px;
   display: flex;
   justify-content: center;
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-
-  li {
-    margin: 0;
-  }
-
-  a {
-    padding: 10px;
-  }
 }
 
-//
-// Dropdown
-//
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 5px;
+nav.navigation ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  max-height: 200px;
-  width: 160px;
-  overflow-y: auto;
-  border: 1px solid $border-primary;
-  z-index: 1;
-
-  a {
-    padding: 4px 16px;
-    text-decoration: none;
-    display: block;
-  }
+nav.navigation li {
+  margin: 0;
 }
 
-.show {
-  display: block;
+nav.navigation a {
+  padding: 10px;
 }
 
-// Alerts
-.alert-danger {
-  color: red;
-}
-
-.alert-success {
-  color: green;
-}
-
-//
-// Trade
-//
-
-.trade-container {
+/* Container for the whole page */
+.news-page {
   display: flex;
   justify-content: space-between;
+  gap: 20px; /* Space between columns */
+  padding: 20px;
+}
+
+/* Sidebar styling */
+.news-sidebar {
+  flex: 1; /* Sidebar takes up 1 part of the space */
+  max-width: 300px; /* Optional: Limit sidebar width */
+  padding: 20px;
+}
+
+/* Main content styling */
+.news-content {
+  flex: 2; /* Main content takes up 2 parts of the space */
+  padding: 20px;
+}
+
+/* Sidebar heading */
+.sidebar-heading {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Sidebar text */
+.sidebar-text {
+  font-size: 1rem;
   margin-bottom: 20px;
 }
 
-.welcome-container {
-  width: 40%;
-  padding: 10px;
-
-  h3 {
-    margin: 5px 0;
-    padding: 0px 2px;
-  }
+/* News content title */
+.news-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-.transaction-container {
+/* Card styling for articles */
+.news-grid {
+  display: flex; /* Use flex to stack vertically */
+  flex-direction: column; /* Stack cards vertically */
+  gap: 20px; /* Space between cards */
+}
+
+.news-card {
+  border: 1px solid #ddd; /* Light border for card separation */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px;
+}
+
+/* Card title */
+.card-title {
+  font-size: 1.5rem;
+}
+
+/* Card content */
+.card-body-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
+  gap: 15px;
+  margin-top: 10px;
 }
-.dropdown input {
-  margin-bottom: 0px;
+
+/* Thumbnail */
+.card-thumbnail {
+  width: 100px;
+  height: auto;
+}
+
+/* Card body */
+.card-body {
+  flex: 1;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+/* Card meta (author, timestamp) */
+.card-meta {
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+/* Featured badge */
+.card-badge {
+  display: inline-block;
+  background-color: #ffcc00; /* Highlight featured articles */
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+/* No news message */
+.no-news-msg {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  text-align: center;
 }

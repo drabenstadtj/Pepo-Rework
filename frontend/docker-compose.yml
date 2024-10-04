@@ -12,7 +12,7 @@ services:
       API_URL: http://localhost:5000
     volumes:
       - .:/app # Mount your local directory to /app inside the container
-    command: npx nodemon --legacy-watch --watch views --watch public --ext js,pug,json,scss server.js
+    command: node app.js #npx nodemon --legacy-watch --watch views --watch public --ext js,pug,json,scss server.js
     networks:
       - pepo-network
 

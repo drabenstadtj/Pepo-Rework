@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  .leaderboard-page
-    .leaderboard-container
-      h1.page-title Leaderboard
+  .page
+    h1.title Leaderboard
+    div(style='overflow-x:auto;')
       table.leaderboard-table
         thead
           tr
@@ -14,7 +14,7 @@ block content
             th.table-header Invested Assets
             th.table-header Net Worth
         tbody#leaderboard-body
-          // The table body will be populated dynamically
-      script.
-        const backendPort = "#{BACKEND_PORT}";
-      script(src="/javascripts/leaderboard.js")
+        // The table body will be populated dynamically
+    script.
+      const backendPort = "#{BACKEND_PORT}";
+    script(src="/javascripts/leaderboard.js")

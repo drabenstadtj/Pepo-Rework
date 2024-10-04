@@ -1,149 +1,221 @@
-/* General Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Page container */
+body {
+  background-color: #f8e5bd;
 }
 
-/* Header Container */
-.header-container {
+.page {
   max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Title */
+.title {
+  text-align: center;
+}
+
+/* Header container */
+.header {
+  max-width: 800px;
   margin: auto;
   text-align: center;
 }
 
-.news-page,
-.stocks-page,
-.leaderboard-page,
-.about-page,
-.trade-page {
-  max-width: 1000px;
-  min-width: 600px;
+/* Form */
+form {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 40px;
+  align-items: center;
+  /* Style the checkbox and label */
+}
+form button {
+  width: 100%;
+  padding: 4px 4px;
+  margin: 8px 0;
+}
+form button:hover {
+  opacity: 0.8;
+}
+form input[type=text],
+form input[type=password],
+form input[type=number],
+form input[type=range],
+form input[type=datetime-local],
+form select,
+form textarea {
+  width: 100%;
+  padding: 4px 4px;
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+form .checkbox-group {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+form .checkbox-group input[type=checkbox] {
+  margin-right: 8px; /* Add space between the checkbox and label */
+  margin-bottom: 0;
+  width: auto; /* Ensure checkbox is not stretched */
 }
 
 /* Navigation */
-nav.navigation {
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-}
-
-nav.navigation ul {
-  list-style-type: none;
+.navigation {
+  list-style: none;
+  text-align: center;
   margin: 0;
   padding: 0;
-  display: flex;
-  gap: 20px;
-  align-items: center;
 }
-
-nav.navigation li {
-  margin: 0;
+.navigation ul {
+  padding: 0%;
+  background-color: rgba(82, 8, 51, 0.6117647059);
+  border-radius: 4px;
 }
-
-nav.navigation a {
-  padding: 10px;
+.navigation li {
+  display: inline;
 }
-
-/* Container for the whole page */
-.news-page {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px; /* Space between columns */
-  padding: 20px;
-}
-
-/* Sidebar styling */
-.news-sidebar {
-  flex: 1; /* Sidebar takes up 1 part of the space */
-  max-width: 300px; /* Optional: Limit sidebar width */
-  padding: 20px;
-}
-
-/* Main content styling */
-.news-content {
-  flex: 2; /* Main content takes up 2 parts of the space */
-  padding: 20px;
-}
-
-/* Sidebar heading */
-.sidebar-heading {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-/* Sidebar text */
-.sidebar-text {
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-/* News content title */
-.news-title {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-/* Card styling for articles */
-.news-grid {
-  display: flex; /* Use flex to stack vertically */
-  flex-direction: column; /* Stack cards vertically */
-  gap: 20px; /* Space between cards */
-}
-
-.news-card {
-  border: 1px solid #ddd; /* Light border for card separation */
-  border-radius: 5px; /* Rounded corners */
-  padding: 15px;
-}
-
-/* Card title */
-.card-title {
-  font-size: 1.5rem;
-}
-
-/* Card content */
-.card-body-wrapper {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-/* Thumbnail */
-.card-thumbnail {
-  width: 100px;
-  height: auto;
-}
-
-/* Card body */
-.card-body {
-  flex: 1;
-}
-
-.card-text {
-  font-size: 1rem;
-}
-
-/* Card meta (author, timestamp) */
-.card-meta {
-  font-size: 0.85rem;
-  margin-top: 10px;
-}
-
-/* Featured badge */
-.card-badge {
+.navigation a {
   display: inline-block;
-  background-color: #ffcc00; /* Highlight featured articles */
-  padding: 5px 10px;
-  font-size: 0.9rem;
-  margin-top: 10px;
+  padding: 20px;
+  font-size: larger;
+  color: white;
+}
+.navigation a:hover {
+  background-color: #520833;
 }
 
-/* No news message */
-.no-news-msg {
-  font-size: 1.2rem;
+/* News Page */
+.column {
+  float: left;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.left,
+.right {
+  width: 20%;
+  margin-top: 60px;
+}
+
+.middle {
+  max-width: 60%;
+  box-sizing: border-box;
+}
+
+/* Target the h3 in the .card inside .column.left */
+.column.left .card h3 {
+  background-color: rgba(255, 108, 64, 0.5019607843);
+  font-weight: bold;
+}
+
+/* Target the h3 in the .card inside .column.right */
+.column.right .card h3 {
+  background-color: rgba(199, 42, 64, 0.5019607843);
+  font-weight: bold;
+}
+
+.card {
+  width: 100%;
+  margin-bottom: 40px;
+}
+.card h3 {
+  margin-bottom: 12px;
+}
+.card img {
+  float: left;
+  max-width: 15%;
+  padding: 4px 10px 0px 0px;
+}
+.card p {
+  margin-top: 0px;
+}
+.card .meta {
+  opacity: 60%;
+  font-size: 14px;
+}
+
+/* Tips */
+.tip-text {
+  font-size: 14px;
   margin-top: 20px;
   text-align: center;
+  opacity: 0.8;
+}
+
+/* Tables */
+table,
+th,
+td {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 15px;
+  width: 33%;
+}
+
+th {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Trade Page */
+.trade-container {
+  display: flex;
+  justify-content: space-between; /* Creates space between columns */
+  gap: 16px; /* Optional: adds space between columns */
+  align-items: flex-start;
+}
+
+.trade-column {
+  flex-basis: 33%; /* Flex-grow allows each column to grow and fill available space */
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
+.trade-column form,
+.trade-column table {
+  width: 100%;
+}
+
+/* Alerts */
+.alert {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #a4e7a6;
+}
+
+.alert-danger {
+  background-color: #e97067;
+}
+
+/* Leaderboard */
+.positive-change {
+  color: green;
+}
+
+.negative-change {
+  color: red;
 }
 
 /*# sourceMappingURL=style.css.map */

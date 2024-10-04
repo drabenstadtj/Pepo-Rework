@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  .stock-page
-    .stock-container
-      h1.page-title Stocks
-      p.tip-text Tip: You can click on Symbol, Price, or Change to sort the table. You can click on a stock to view its details.
+  .page
+    h1.title Stocks
+    p.tip-text Tip: You can click on Symbol, Price, or Change to sort the table. You can click on a stock to view its details.
+    div(style='overflow-x:auto;')
       table.stocks-table
         thead
           tr
@@ -13,4 +13,4 @@ block content
             th#change-header Change
         tbody#stocks-body
           // The table body will be populated dynamically
-      script(src="/javascripts/stocks.js")
+    script(src="/javascripts/stocks.js")

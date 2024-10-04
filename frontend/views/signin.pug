@@ -1,22 +1,21 @@
 extends layout
 
 block content
-  .signin-container
-    h1.signin-title Sign In
-    form.signin-form(action='/auth/signin', method='post', onsubmit='return trimInput()')
-      .form-group
-        input.form-input(type='text', id='signin-username', name='username', placeholder='Username', required)
-      .form-group
-        input.form-input(type='password', id='signin-password', name='password', placeholder='Password', required)
-      .form-group
-        if error
-          .alert.alert-danger
-            p #{error}
-      button.submit-button(type='submit') Sign In
+  .page
+    h1.title Sign In
+    form.auth-form(action='/auth/signin', method='post', onsubmit='return trimInput()')
+      label #[strong Username]
+      input(type='text', id='signin-username', name='username', placeholder='Username', required)
+      label #[strong Password]
+      input(type='password', id='signin-password', name='password', placeholder='Password', required)
+      if error
+        .alert.alert-danger
+          p #{error}
+      button(type='submit') Sign In
 
-    h1.signup-title Sign Up 
-    form.signup-form(action='/auth/signup', method='get')
-      button.submit-button(type='submit') Sign Up
+    h1.title Sign Up 
+    form.form(action='/auth/signup', method='get')
+      button(type='submit') Sign Up
       
   script.
     function trimInput() {

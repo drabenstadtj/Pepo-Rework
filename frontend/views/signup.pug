@@ -1,23 +1,25 @@
 extends layout
 
 block content
-  .signup-container
-    h1.signup-title Sign Up
-    form.signup-form(action="/auth/signup", method="POST")
-      input.form-input(type="text", name="username", id="signup-username", placeholder="Username", required)
-      br
-      input.form-input(type="password", name="password", id="signup-password", placeholder="Password", required)
-      br
-      if isProduction
-        input.form-input(type="password", name="passcode", id="passcode", placeholder="Passcode", required)
-        if error == 'Incorrect passcode'
-          p.error-message Incorrect passcode
-      if error == 'Username is already taken'
-        p.error-message Username is already taken
-      if error == 'Username or Password cannot contain spaces'
-        p.error-message Username or Password cannot contain spaces
-      button.submit-button(type="submit") Sign Up
+  .page
+    h1.title Sign Up
+    form(action="/auth/signup", method="POST")
 
-    h1.signin-title Sign In 
-    form.signin-form(action='/auth/signin', method='get')
-      button.submit-button(type='submit') Sign In
+      label #[strong Username]
+      input(type="text", name="username", id="signup-username", placeholder="Username", required)
+      
+      label #[strong Password]
+      input(type="password", name="password", id="signup-password", placeholder="Password", required)
+      if isProduction
+        input(type="password", name="passcode", id="passcode", placeholder="Passcode", required)
+        if error == 'Incorrect passcode'
+          p.error Incorrect passcode
+      if error == 'Username is already taken'
+        p.error Username is already taken
+      if error == 'Username or Password cannot contain spaces'
+        p.error Username or Password cannot contain spaces
+      button(type="submit") Sign Up
+
+    h1.title Sign In 
+    form(action='/auth/signin', method='get')
+      button(type='submit') Sign In
