@@ -4,13 +4,22 @@ block content
   .page
     h1.title Stocks
     p.tip-text Tip: You can click on Symbol, Price, or Change to sort the table. You can click on a stock to view its details.
-    div(style='overflow-x:auto;')
-      table.stocks-table
-        thead
-          tr
-            th#symbol-header Symbol
-            th#price-header Price
-            th#change-header Change
-        tbody#stocks-body
-          // The table body will be populated dynamically
+    
+    // Stock information card container
+    div.stock-info-card#stock-info-card
+      p No stock selected. Click on a stock to see details.
+
+
+    div(style='display: flex;')
+      // Stock table container
+      div(style='overflow-x:auto; flex: 1;')
+        table.stocks-table
+          thead
+            tr
+              th#symbol-header Symbol
+              th#price-header Price
+              th#change-header Change
+          tbody#stocks-body
+            // The table body will be populated dynamically
+
     script(src="/javascripts/stocks.js")

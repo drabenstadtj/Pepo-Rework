@@ -38,6 +38,7 @@ const stocksRoutes = require('./routes/stocks');
 const tradeRoutes = require('./routes/trade');
 const portfolioRoutes = require('./routes/portfolio');
 const adminRoutes = require('./routes/admin');
+const shopRouter = require('./routes/shop'); // Adjust the path as needed
 
 app.use('/auth', authRoutes);
 app.use('/', indexRoutes);
@@ -46,6 +47,7 @@ app.use('/stocks', stocksRoutes);
 app.use('/trade', tradeRoutes);
 app.use('/portfolio', portfolioRoutes);
 app.use('/admin', adminRoutes);
+app.use('/shop', shopRouter);
 
 // Error handling
 app.use((err, req, res, next) => {

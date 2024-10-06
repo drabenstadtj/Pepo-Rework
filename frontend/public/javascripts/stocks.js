@@ -1,20 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   const apiUrl = window.apiUrl;
-
   const stocksBody = document.getElementById('stocks-body');
   const symbolHeader = document.getElementById('symbol-header');
   const priceHeader = document.getElementById('price-header');
   const changeHeader = document.getElementById('change-header');
-
+  const stockInfoCard = document.getElementById('stock-info-card');
+  
   let stocks = [];
+  let selectedStock = null; // Keep track of the selected stock symbol
   let sortColumn = 'symbol';
   let sortOrder = 'asc';
-
-  function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, options);
-  }
 
   async function fetchStocks() {
     try {
@@ -67,54 +62,46 @@ document.addEventListener("DOMContentLoaded", () => {
     stocksBody.innerHTML = ''; 
     stocks.forEach(stock => {
       const row = document.createElement('tr');
-
+  
       const symbolCell = document.createElement('td');
       symbolCell.classList.add('stock-popup');
       symbolCell.textContent = stock.symbol;
       row.appendChild(symbolCell);
-
+  
       const priceCell = document.createElement('td');
       priceCell.textContent = `$${stock.price.toFixed(2)}`;
       row.appendChild(priceCell);
-
+  
       const changeCell = document.createElement('td');
       changeCell.textContent = stock.change.toFixed(2);
-      changeCell.classList.add(stock.change >= 0 ? 'positive-change' : 'negative-change');
+      changeCell.classList.add(stock.change >= 0 ? 'positive' : 'negative');
       row.appendChild(changeCell);
-
-      // Add click event to the row to toggle the additional details
-      row.addEventListener('click', () => toggleStockDetails(row, stock));
-
+  
+      row.addEventListener('click', () => {
+        selectedStock = stock.symbol;
+        displayStockInfo(stock);
+      });
+  
       stocksBody.appendChild(row);
     });
+
+    // After the table is updated, if a stock was previously selected, re-display its info
+    if (selectedStock) {
+      const selected = stocks.find(stock => stock.symbol === selectedStock);
+      if (selected) displayStockInfo(selected);
+    }
   }
 
-  function toggleStockDetails(row, stock) {
-    // Check if the details row already exists (i.e., if the row is already expanded)
-    const nextRow = row.nextElementSibling;
-    if (nextRow && nextRow.classList.contains('details-row')) {
-      nextRow.remove(); // If details row exists, remove it (toggle off)
-    } else {
-      // Create a new row for the expanded details
-      const detailsRow = document.createElement('tr');
-      detailsRow.classList.add('details-row');
+  function displayStockInfo(stock) {
 
-      const detailsCell = document.createElement('td');
-      detailsCell.colSpan = 3; // Span across all table columns
-      detailsCell.innerHTML = `
-        <div>
-          <strong>Name:</strong> ${stock.name}<br>
-          <strong>Sector:</strong> ${stock.sector}<br>
-          <strong>Low:</strong> $${stock.low.toFixed(2)}<br>
-          <strong>High:</strong> $${stock.high.toFixed(2)}<br>
-          <strong>Last Updated:</strong> ${formatDate(stock.last_update)}
-        </div>
-      `;
-      detailsRow.appendChild(detailsCell);
-
-      // Insert the details row just after the clicked row
-      row.parentNode.insertBefore(detailsRow, row.nextSibling);
-    }
+    stockInfoCard.innerHTML = `
+      <h3>Stock Details</h3>
+      <p><strong>Name:</strong> ${stock.name}</p>
+      <p><strong>Symbol:</strong> ${stock.symbol}</p>
+      <p><strong>Price:</strong> $${stock.price.toFixed(2)}</p>
+      <p><strong>Change:</strong> ${stock.change.toFixed(2)}</p>
+      <p><strong>Last Updated:</strong> ${formatDate(stock.last_update)}</p>
+    `;
   }
 
   symbolHeader.addEventListener('click', () => {
@@ -135,6 +122,32 @@ document.addEventListener("DOMContentLoaded", () => {
     sortAndUpdateStocks();
   });
 
-  fetchStocks();
-  setInterval(fetchStocks, 10000); // Update every 10 seconds
+  function formatDate(dateString) {
+    // Create a date object from the ISO string
+    const date = new Date(dateString);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+        console.error("Invalid date string:", dateString);
+        return "Invalid Date"; // or return a default string
+    }
+
+    // Options for formatting the date
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short' // Optional: include the time zone name
+    };
+
+    // Return the formatted date string
+    return date.toLocaleString(undefined, options);
+}
+
+  
+
+  setInterval(fetchStocks, 10000);
+  fetchStocks(); // Initial load
 });

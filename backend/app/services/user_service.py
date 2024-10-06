@@ -26,7 +26,8 @@ class UserService:
             "password": generate_password_hash(data['password']),
             "balance": 10000,
             "portfolio": [],
-            "isAdmin": False
+            "isAdmin": False,
+            "title": None
         }
         try:
             logger.info(f"Registering new user: {data['username']}")
@@ -164,3 +165,5 @@ class UserService:
         except Exception as e:
             logger.error(f"Error fetching assets value for user ID {user_id}: {e}")
             return 0
+
+

@@ -31,7 +31,7 @@ class LeaderboardService:
 
                 leaderboard.append({
                     'username': user['username'],
-                    'title': 'Gourd Lord',  # Example title, customize as needed
+                     #'title': 'Gourd Lord',  # Example title, to be loaded from user entry
                     'liquidAssets': user['balance'],
                     'investedAssets': invested_assets,
                     'netWorth': net_worth,

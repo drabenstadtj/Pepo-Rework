@@ -8,6 +8,7 @@ from .portfolio import bp as portfolio_bp
 from .leaderboard import bp as leaderboard_bp
 from .admin import bp as admin_bp
 from .news import bp as news_bp
+from .shop import bp as shop_bp
 
 # Create a function to register all blueprints
 def register_routes(app):
@@ -18,4 +19,5 @@ def register_routes(app):
     app.register_blueprint(leaderboard_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(news_bp)
+    app.register_blueprint(shop_bp)
 
