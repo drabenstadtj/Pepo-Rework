@@ -61,6 +61,6 @@ if missing_vars:
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
-    MONGO_URI = 'mongodb://mongo:27017/'
+    MONGO_URI = 'mongodb://mongo:27017/gourdstocks'
     CORS_ORIGINS = os.getenv('FRONTEND_URL').split(',')
     SESSION_COOKIE_SECURE = os.getenv('MODE') == 'production'  # Secure cookies in production
