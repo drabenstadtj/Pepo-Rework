@@ -9,6 +9,8 @@ const app = express();
 // Set the view engine to Pug and specify the views directory
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+app.set('trust proxy', 1);  // Trust the reverse proxy (e.g., NGINX)
+
 
 // Middleware to parse URL-encoded bodies and serve static files
 app.use(express.urlencoded({ extended: true }));
@@ -16,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Configure session middleware
 app.use(session({
-  secret: config.secretKey,
+  secret: config.sessionSecret,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -26,6 +28,8 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000  // 1 day
   }
 }));
+
+
 
 
 // Add request logging
