@@ -11,8 +11,8 @@ client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 
 # Paths to the JSON files
-STOCKS_FILE = 'initialize/stocks.json'
-TITLES_FILE = 'initialize/titles.json'
+STOCKS_FILE = 'stocks.json'
+TITLES_FILE = 'titles.json'
 
 def load_data_from_json(file_path):
     """Load data from a JSON file."""
