@@ -19,8 +19,8 @@ def get_leaderboard():
         page = request.args.get('page', 1, type=int)
         limit = request.args.get('limit', 10, type=int)
 
-        logger.info(f"Fetching the leaderboard for page {page} with limit {limit}")
-        leaderboard = LeaderboardService.get_leaderboard(page, limit)
+        logger.info(f"Fetching the leaderboard")
+        leaderboard = LeaderboardService.get_leaderboard()
         
         if not leaderboard:
             logger.warning("Leaderboard data is empty")
