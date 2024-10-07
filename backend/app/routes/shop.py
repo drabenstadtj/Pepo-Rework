@@ -60,3 +60,15 @@ def purchase_title(user_id):
     result = ShopService.purchase_title({"user_id": user_id, "level": level})
 
     return jsonify(result)
+
+
+@bp.route('/titles', methods=['GET'])
+def get_shop_data():
+    """
+    Endpoint for retrieving shop data (titles and prices).
+    """
+    titles = ShopService.get_shop_data()
+    if titles:
+        return jsonify(titles), 200
+    else:
+        return jsonify({"message": "No titles found."}), 404
