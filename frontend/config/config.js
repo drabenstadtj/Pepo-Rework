@@ -16,7 +16,7 @@ const config = {
   isProduction: process.env.MODE === 'production',  // Use MODE for consistency
   secretKey: process.env.SECRET_KEY,
   sessionSecret: process.env.SESSION_SECRET,
-  apiUrl: process.env.BACKEND_URL || 'http://localhost:5000',  // Ensure API URL is configurable
+  apiUrl: process.env.BACKEND_URL,  // Ensure API URL is configurable
   signupPasscode: process.env.SIGNUP_PASSCODE,
 };
 
