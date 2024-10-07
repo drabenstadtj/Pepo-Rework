@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  # Backend Flask app
+  web:
+    container_name: pepo_backend
+    build: ./backend  # Assuming your backend code is in a folder named 'backend'
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URI=${DATABASE_URI}
+      - SECRET_KEY=${SECRET_KEY}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - MODE=${MODE}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - SIGNUP_PASSCODE=${SIGNUP_PASSCODE}
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app  # Optional: Mounts the backend folder to the container, useful for development
+    networks:
+      - pepo-network
+
+  # Frontend service (e.g., Node.js)
+  frontend:
+    container_name: pepo_frontend
+    build: ./frontend  # Assuming your frontend code is in a folder named 'frontend'
+    ports:
+      - "3000:3000"  # Assuming your frontend runs on port 3000
+    environment:
+      - BACKEND_URL=${BACKEND_URL}
+      - API_URL=${API_URL}  # Use correct API URL for frontend
+      - MODE=${MODE}
+      - SIGNUP_PASSCODE=${SIGNUP_PASSCODE}
+    volumes:
+      - ./frontend:/app  # Mounts the frontend directory for development
+    networks:
+      - pepo-network
+
+  # MongoDB for backend database
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - pepo-network
+
+  # Redis for message brokering with Celery
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - pepo-network
+
+  # Celery worker for background task processing
+  celery_worker:
+    build: ./backend  # Assuming tasks are defined in the backend
+    container_name: celery_worker
+    command: celery -A tasks worker --loglevel=info
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    networks:
+      - pepo-network
+
+  # Celery beat for scheduling tasks
+  celery_beat:
+    build: ./backend  # Assuming beat tasks are defined in the backend
+    container_name: celery_beat
+    command: celery -A tasks beat --loglevel=info
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    networks:
+      - pepo-network
+
+networks:
+  pepo-network:
+    external: true  # Use the existing network
+
+volumes:
+  mongo-data:
