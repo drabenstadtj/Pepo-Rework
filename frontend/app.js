@@ -2,9 +2,20 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const morgan = require('morgan');
+const cors = require('cors');  // Add CORS for handling cross-origin requests
 const config = require('./config/config');
 
 const app = express();
+
+// Set up CORS
+const allowedOrigins = config.isProduction
+  ? ['http://your-production-frontend-domain.com']  // Replace with your actual frontend domain
+  : ['http://localhost:3000'];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 // Set the view engine to Pug and specify the views directory
 app.set('view engine', 'pug');
@@ -21,14 +32,20 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: config.isProduction,
+    secure: config.isProduction,  // True in production (for HTTPS)
     sameSite: config.isProduction ? 'None' : 'Lax',
-    maxAge: 24 * 60 * 60 * 1000  // Cookie expiration time
+    maxAge: 24 * 60 * 60 * 1000  // 1 day
   }
 }));
 
 // Add request logging
 app.use(morgan('combined'));
+
+// Pass apiUrl to all views
+app.use((req, res, next) => {
+  res.locals.apiUrl = config.apiUrl;
+  next();
+});
 
 // Register routes
 const authRoutes = require('./routes/auth');
@@ -52,15 +69,15 @@ app.use('/shop', shopRouter);
 // Error handling
 app.use((err, req, res, next) => {
   console.error('Internal Server Error:', err);
-  res.status(500).send('Internal Server Error');
+  if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  } else {
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-if (config.isProduction) {
-  app.listen(3000, () => {
-    console.log(`Server is running in production mode on http://localhost:3000`);
-  });
-} else {
-  app.listen(3000, () => {
-    console.log(`Server is running in development mode on http://localhost:3000`);
-  });
-}
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running in ${config.isProduction ? 'production' : 'development'} mode on http://localhost:${PORT}`);
+});

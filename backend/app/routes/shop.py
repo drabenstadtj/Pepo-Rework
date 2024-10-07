@@ -21,12 +21,12 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization')
-        if not token:
-            logger.warning("Token is missing from the request.")
-            return jsonify({'message': 'Token is missing!'}), 403
+        if not token or not token.startswith('Bearer '):
+            logger.warning("Token is missing or improperly formatted.")
+            return jsonify({'message': 'Token is missing or improperly formatted!'}), 403
 
         try:
-            token = token.split()[1]  # Extract token from 'Bearer <token>' format
+            token = token.split()[1]
             data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
             user_id = data['user_id']
             logger.info(f"Token successfully decoded for user_id: {user_id}")
@@ -54,24 +54,10 @@ def purchase_title(user_id):
     data = request.json
     level = data.get("level")
 
-    # Check if level is provided in the request
     if level is None:
         logger.warning("Level is missing from the request.")
         return jsonify({'message': 'Level is required!'}), 400
 
-    # Call the purchase_title service method with user_id and level
     result = ShopService.purchase_title({"user_id": user_id, "level": level})
 
-    # If an error occurred in the service, the message will reflect that
     return jsonify(result)
-
-@bp.route('/titles', methods=['GET'])
-def get_shop_data():
-    """
-    Endpoint for retrieving shop data (titles and prices).
-    """
-    titles = ShopService.get_shop_data()
-    if titles:
-        return jsonify(titles), 200
-    else:
-        return jsonify({"message": "No titles found."}), 404

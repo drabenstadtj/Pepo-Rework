@@ -1,0 +1,108 @@
+version: "3.8"
+services:
+  # Backend Service
+  backend:
+    container_name: pepo_backend
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URI: ${DATABASE_URI}
+      SECRET_KEY: ${SECRET_KEY}
+      LOG_LEVEL: ${LOG_LEVEL}
+      FLASK_ENV: ${FLASK_ENV} # Indicate production environment for Flask
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app # Optional: Mount the backend code for development
+    command: gunicorn -c gunicorn.conf.py run:app # Use Gunicorn for production
+    networks:
+      - pepo-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Service
+  frontend:
+    container_name: pepo_frontend
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      SESSION_SECRET: ${SESSION_SECRET}
+      API_URL: ${API_URL} # Link to backend service using service name
+      SIGNUP_PASSCODE: ${SIGNUP_PASSCODE} # Production passcode
+      NODE_ENV: ${NODE_ENV} # Use 'production' for production environments
+      PORT: ${PORT} # Define the port for the frontend
+    volumes:
+      - ./frontend:/app # Optional: Mount the frontend code for development
+    depends_on:
+      - backend
+    networks:
+      - pepo-network
+
+  # MongoDB Service
+  mongo:
+    container_name: pepo_mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - pepo-network
+
+  # Redis Service (for Celery tasks)
+  redis:
+    container_name: pepo_redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - pepo-network
+
+  # Celery Worker Service
+  celery_worker:
+    build:
+      context: ./updates
+    container_name: celery_worker
+    command: celery -A tasks worker --loglevel=info
+    volumes:
+      - ./updates:/app # Mount the update service code
+    depends_on:
+      - redis
+      - backend
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
+    networks:
+      - pepo-network
+
+  # Celery Beat (Scheduler) Service
+  celery_beat:
+    build:
+      context: ./updates
+    container_name: celery_beat
+    command: celery -A tasks beat --loglevel=info
+    volumes:
+      - ./updates:/app # Mount the update service code
+    depends_on:
+      - redis
+      - backend
+    environment:
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+      CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
+    networks:
+      - pepo-network
+
+volumes:
+  mongo-data:
+
+networks:
+  pepo-network:
+    driver: bridge

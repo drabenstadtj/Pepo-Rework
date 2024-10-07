@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify, request, make_response
+from flask import Blueprint, jsonify, request
 from app.services.leaderboard_service import LeaderboardService
-from flask_cors import CORS
 import logging
+import os
 
 # Initialize the logger
 logger = logging.getLogger(__name__)
@@ -9,27 +9,25 @@ logger = logging.getLogger(__name__)
 # Create a Blueprint for leaderboard-related routes
 bp = Blueprint('leaderboard', __name__, url_prefix='/leaderboard')
 
-# Apply CORS
-CORS(bp, supports_credentials=True)
-
-@bp.route('', methods=['GET', 'OPTIONS'])
+@bp.route('', methods=['GET'])
 def get_leaderboard():
     """
     Fetch the current leaderboard.
-    
-    Returns a JSON object with the leaderboard data.
+    Supports pagination using 'page' and 'limit' query parameters.
     """
     try:
-        logger.info("Fetching the current leaderboard")
-        # Retrieve the leaderboard from the service
-        leaderboard = LeaderboardService.get_leaderboard()
+        page = request.args.get('page', 1, type=int)
+        limit = request.args.get('limit', 10, type=int)
+
+        logger.info(f"Fetching the leaderboard for page {page} with limit {limit}")
+        leaderboard = LeaderboardService.get_leaderboard(page, limit)
         
         if not leaderboard:
             logger.warning("Leaderboard data is empty")
+            return jsonify({"message": "No data available"}), 404
         else:
             logger.info("Successfully fetched the leaderboard")
-        
-        return jsonify(leaderboard)
+            return jsonify(leaderboard), 200
     except Exception as e:
         logger.error(f"Error fetching the leaderboard: {e}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': 'Internal Server Error'}), 500

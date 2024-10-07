@@ -21,3 +21,7 @@ def register_routes(app):
     app.register_blueprint(news_bp)
     app.register_blueprint(shop_bp)
 
+    # Health check route
+    @app.route('/healthcheck', methods=['GET'])
+    def healthcheck():
+        return {"status": "ok"}, 200

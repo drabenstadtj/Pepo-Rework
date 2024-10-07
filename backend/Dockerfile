@@ -13,5 +13,8 @@ RUN mkdir -p /app/logs && chmod -R 777 /app/logs
 # Install the dependencies
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Default command
-CMD ["python", "run.py"]
+# Install Gunicorn for production use
+RUN pip install gunicorn
+
+# Use Gunicorn as the default command for production
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "run:app"]

@@ -6,16 +6,18 @@ services:
     ports:
       - "3000:3000"
     environment:
-      SECRET_KEY: your_secret_key
-      SESSION_SECRET: aaaaaaaa
-      CONFIG: development
-      API_URL: http://localhost:5000
+      SECRET_KEY: ${SECRET_KEY} # Externalize secrets for security
+      SESSION_SECRET: ${SESSION_SECRET}
+      API_URL: http://pepo_backend:5000 # The backend service URL (should match backend service name in Docker)
+      SIGNUP_PASSCODE: ${SIGNUP_PASSCODE} # Replace if using a passcode for production
+      NODE_ENV: production # Use 'production' for production environments
+      PORT: 3000 # Define the port for the frontend
     volumes:
-      - .:/app # Mount your local directory to /app inside the container
-    command: node app.js #npx nodemon --legacy-watch --watch views --watch public --ext js,pug,json,scss server.js
+      - .:/app # Only use this in development for live reloading
+    command: npm start
     networks:
       - pepo-network
 
 networks:
   pepo-network:
-    external: true
+    external: false # Remove external true unless needed
