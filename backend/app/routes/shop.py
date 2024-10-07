@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify, request, current_app
 from app.services.shop_service import ShopService
 import jwt
 from functools import wraps
-import os
 import logging
 
 # Initialize the logger
@@ -10,9 +9,6 @@ logger = logging.getLogger(__name__)
 
 # Create a Blueprint for shop-related routes
 bp = Blueprint('shop', __name__, url_prefix='/shop')
-
-# Load environment variables
-SECRET_KEY = current_app.config['SECRET_KEY']
 
 def token_required(f):
     """
@@ -27,7 +23,10 @@ def token_required(f):
 
         try:
             token = token.split()[1]
-            data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+            
+            # Access the SECRET_KEY inside a valid application context
+            secret_key = current_app.config['SECRET_KEY']
+            data = jwt.decode(token, secret_key, algorithms=["HS256"])
             user_id = data['user_id']
             logger.info(f"Token successfully decoded for user_id: {user_id}")
         except jwt.ExpiredSignatureError:
