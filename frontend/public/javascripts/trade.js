@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const apiUrl = window.apiUrl;  // Use the global apiUrl variable
+  const apiUrl = "https://api.gourdlord.net";  // Use the global apiUrl variable
   const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   const stockSymbolInput = document.getElementById('stockSymbol');
   const stockPriceInput = document.getElementById('stockPrice');

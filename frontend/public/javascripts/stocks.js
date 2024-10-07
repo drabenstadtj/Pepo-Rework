@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const apiUrl = window.apiUrl;
+  const apiUrl = "https://api.gourdlord.net";
   const stocksBody = document.getElementById('stocks-body');
   const symbolHeader = document.getElementById('symbol-header');
   const priceHeader = document.getElementById('price-header');

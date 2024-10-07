@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const apiUrl = window.apiUrl;  // Use the global apiUrl variable
+  const apiUrl = "https://api.gourdlord.net";  // Use the global apiUrl variable
   
   const leaderboardBody = document.getElementById('leaderboard-body');
 
