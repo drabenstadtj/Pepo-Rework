@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Configure session middleware
 app.use(session({
-  secret: config.sessionSecret,
+  secret: config.secretKey,
   resave: false,
   saveUninitialized: true,
   cookie: {
