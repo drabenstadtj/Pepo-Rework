@@ -7,6 +7,10 @@ block content
 
   .page
     h1.title Shop
+    .user-info
+      p Your balance: $<span id="user-balance">#{balance.toLocaleString('en-US')}</span>
+      p Current Title: #{title} 
+
     .shop-container
       if shopData.length
         table.shop-table
@@ -20,11 +24,9 @@ block content
               tr
                 td.shop-data= item.title
                 td.shop-data
-                  img(src=`images/Level${item.level}.png`, alt=`Image for Level ${item.level}`, style="max-height:60px; margin: auto;") 
+                  img(src=`images/Level${item.level}.png`, alt=`Image for Level ${item.level}`, style="max-height:60px; margin: auto;")
                 td.shop-data $<span class="price">#{item.price.toFixed(2)}</span>
                 td.shop-data
                   button.purchase-button(data-level=item.level) Buy
-      else
-        p No titles available for purchase.
 
     script(src="/javascripts/shop.js")

@@ -27,7 +27,7 @@ class UserService:
             "balance": 10000,
             "portfolio": [],
             "isAdmin": False,
-            "title": None
+            "title_level": -1
         }
         try:
             logger.info(f"Registering new user: {data['username']}")
@@ -140,6 +140,40 @@ class UserService:
         except Exception as e:
             logger.error(f"Error fetching balance for user ID {user_id}: {e}")
             return []
+
+    @staticmethod
+    def get_title(user_id):
+        """
+        Fetch the user's title by user ID.
+        If the user's title_level is -1, return "none" as the title name.
+        Otherwise, return the title name and the title level from the titles collection.
+        """
+        try:
+            logger.info(f"Fetching title for user ID: {user_id}")
+            # Find the user and their title_level
+            user = mongo.db.users.find_one({"_id": ObjectId(user_id)}, {"title_level": 1})
+            
+            if not user or 'title_level' not in user:
+                logger.warning(f"No title found for user ID: {user_id}")
+                return {"level": -1, "name": "none"}  # User not found or title_level missing
+
+            # If the title_level is -1, the user has no title
+            if user['title_level'] == -1:
+                return {"level": -1, "name": "none"}
+
+            # Otherwise, fetch the corresponding title name from the titles collection
+            title = mongo.db.titles.find_one({"level": user['title_level']}, {"title": 1})
+            if title:
+                return {"level": user['title_level'], "name": title['title']}
+            else:
+                # Handle case where the title level does not have a corresponding entry
+                logger.warning(f"Title for level {user['title_level']} not found in titles collection")
+                return {"level": -1, "name": "none"}
+
+        except Exception as e:
+            logger.error(f"Error fetching title for user ID {user_id}: {e}")
+            return {"level": -1, "name": "none"}
+
 
     @staticmethod
     def get_assets_value(user_id):

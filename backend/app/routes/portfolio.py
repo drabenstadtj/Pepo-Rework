@@ -79,6 +79,37 @@ def get_balance(user_id):
     except Exception as e:
         logger.error(f"Error fetching balance for user_id {user_id}: {e}")
         return jsonify({'error': str(e)}), 500, {'Content-Type': 'application/json'}
+    
+@bp.route('/title', methods=['GET'])
+@token_required
+def get_title(user_id):
+    """
+    Fetch the user's title.
+
+    Expects a valid JWT token.
+    Returns the user's current title if found, including the title level and name.
+    If the title_level is -1, it returns "none" as the title name.
+    """
+    try:
+        logger.info(f"Fetching title for user_id: {user_id}")
+        # Get the user's title level and name
+        title_data = UserService.get_title(user_id)
+        
+        if title_data:
+            logger.info(f"Successfully fetched title for user_id: {user_id}")
+            # Return the title information with level and name
+            return jsonify({
+                "level": title_data['level'],
+                "name": title_data['name']
+            }), 200, {'Content-Type': 'application/json'}
+        else:
+            logger.warning(f"Title not found for user_id: {user_id}")
+            return jsonify({"message": "Title not found"}), 404
+    except Exception as e:
+        logger.error(f"Error fetching title for user_id {user_id}: {e}")
+        return jsonify({'error': str(e)}), 500, {'Content-Type': 'application/json'}
+
+
 
 @bp.route('/assets_value', methods=['GET'])
 @token_required

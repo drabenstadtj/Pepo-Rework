@@ -29,34 +29,42 @@ document.addEventListener("DOMContentLoaded", () => {
     leaderboardBody.innerHTML = '';  // Clear existing content
     users.forEach((user, index) => {
       const row = document.createElement('tr');
-
+  
       const rankCell = document.createElement('td');
       rankCell.textContent = index + 1;
       row.appendChild(rankCell);
-
+  
       const nameCell = document.createElement('td');
       nameCell.textContent = user.username;
       row.appendChild(nameCell);
-
+  
       const titleCell = document.createElement('td');
-      titleCell.textContent = user.title;
+  
+      // Create an image element for the title
+      const titleImage = document.createElement('img');
+      titleImage.src = user.title_image;  // Use the image URL from user data
+      titleImage.alt = `Image for ${user.title}`;  // Alt text for accessibility
+      titleImage.style.maxHeight = '60px';  // Set a max height for consistency
+      titleImage.style.margin = 'auto';  // Center the image
+      titleCell.appendChild(titleImage);
       row.appendChild(titleCell);
-
+  
       const liquidAssetsCell = document.createElement('td');
       liquidAssetsCell.textContent = formatMoney(user.liquidAssets);
       row.appendChild(liquidAssetsCell);
-
+  
       const investedAssetsCell = document.createElement('td');
       investedAssetsCell.textContent = formatMoney(user.investedAssets);
       row.appendChild(investedAssetsCell);
-
+  
       const netWorthCell = document.createElement('td');
       netWorthCell.textContent = formatMoney(user.netWorth);
       row.appendChild(netWorthCell);
-
+  
       leaderboardBody.appendChild(row);
     });
   }
+  
 
   function formatMoney(value) {
     return `$${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;

@@ -28,9 +28,8 @@ def token_required(f):
         try:
             token = token.split()[1]  # Extract token from 'Bearer <token>' format
             data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-            username = data['username']  # Assuming 'username' is stored in the token
-            logger.info(f"Token successfully decoded for username: {username}")
-            return f(username, *args, **kwargs)
+            user_id = data['user_id']
+            logger.info(f"Token successfully decoded for user_id: {user_id}")
         except jwt.ExpiredSignatureError:
             logger.warning("Token has expired.")
             return jsonify({'message': 'Token has expired!'}), 403
@@ -39,13 +38,15 @@ def token_required(f):
             return jsonify({'message': 'Token is invalid!'}), 403
         except Exception as e:
             logger.error(f"Token verification failed: {e}")
-            return jsonify({'message': 'Token verification failed!'}), 500
+            return jsonify({'message': 'Token verification failed!'}), 403
+
+        return f(user_id, *args, **kwargs)
 
     return decorated
 
 @bp.route('/purchase', methods=['POST'])
 @token_required
-def purchase_title(username):
+def purchase_title(user_id):
     """
     Endpoint for purchasing a title.
     Expects JSON payload with the title level.
@@ -53,11 +54,15 @@ def purchase_title(username):
     data = request.json
     level = data.get("level")
 
+    # Check if level is provided in the request
     if level is None:
         logger.warning("Level is missing from the request.")
         return jsonify({'message': 'Level is required!'}), 400
 
-    result = ShopService.purchase_title(username, level)
+    # Call the purchase_title service method with user_id and level
+    result = ShopService.purchase_title({"user_id": user_id, "level": level})
+
+    # If an error occurred in the service, the message will reflect that
     return jsonify(result)
 
 @bp.route('/titles', methods=['GET'])

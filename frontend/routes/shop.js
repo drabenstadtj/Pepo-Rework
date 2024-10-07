@@ -16,14 +16,41 @@ router.get('/', requireLogin, attachToken, async (req, res) => {
       headers: { 'Authorization': `Bearer ${token}` }
     });
 
-    const shopData = shopResponse.data; // This should be an array of titles
-    console.log(shopData)
+    // Fetch user's balance
+    const balanceResponse = await axios.get(getBackendUrl('/portfolio/balance'), {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
 
-    res.render('shop', { user: req.session.user, shopData, token });
+        // Fetch user's current title
+    const titleResponse = await axios.get(getBackendUrl('/portfolio/title'), {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    // Extract title name and level from response
+    const { title_level, name: title } = titleResponse.data; // Extract both title_level and name
+
+    const shopData = shopResponse.data; // Array of titles
+    const  balance  = balanceResponse.data; // Extract balance
+
+    const formattedBalance = balance.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+
+    res.render('shop', { 
+      user: req.session.user, 
+      shopData, 
+      token, 
+      balance, 
+      title_level, 
+      title // Include title (name)
+    });
+    
   } catch (error) {
     console.error('Shop fetch error:', error);
     res.status(500).send("Internal Server Error");
   }
 });
+
 
 module.exports = router;
