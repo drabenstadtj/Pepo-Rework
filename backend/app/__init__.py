@@ -12,7 +12,7 @@ def create_app():
 
     # Initialize extensions
     mongo.init_app(app)
-    CORS(app, origins=Config.CORS_ORIGINS)
+    CORS(app, origins=Config.CORS_ORIGINS, supports_credentials=True)
 
     # Initialize logger
     logger = logging.getLogger(__name__)

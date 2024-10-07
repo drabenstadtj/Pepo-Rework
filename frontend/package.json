@@ -15,8 +15,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "scss": "sass --watch public/scss:public/css",
-    "start": "nodemon --watch views --watch public --ext js,pug,json server.js"
+    "start": "node app.js"
     },
   "devDependencies": {
     "babel-loader": "^9.1.3",

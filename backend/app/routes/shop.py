@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from app.services.shop_service import ShopService
 import jwt
 from functools import wraps
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 bp = Blueprint('shop', __name__, url_prefix='/shop')
 
 # Load environment variables
-SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key')
+SECRET_KEY = current_app.config['SECRET_KEY']
 
 def token_required(f):
     """

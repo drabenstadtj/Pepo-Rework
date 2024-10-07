@@ -2,20 +2,9 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const morgan = require('morgan');
-const cors = require('cors');  // Add CORS for handling cross-origin requests
 const config = require('./config/config');
 
 const app = express();
-
-// Set up CORS
-const allowedOrigins = config.isProduction
-  ? ['http://your-production-frontend-domain.com']  // Replace with your actual frontend domain
-  : ['http://localhost:3000'];
-
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
 
 // Set the view engine to Pug and specify the views directory
 app.set('view engine', 'pug');
@@ -32,11 +21,12 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: config.isProduction,  // True in production (for HTTPS)
+    secure: config.isProduction,  // Ensure secure cookies in production
     sameSite: config.isProduction ? 'None' : 'Lax',
     maxAge: 24 * 60 * 60 * 1000  // 1 day
   }
 }));
+
 
 // Add request logging
 app.use(morgan('combined'));
