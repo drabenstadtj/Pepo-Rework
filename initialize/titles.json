@@ -1,0 +1,83 @@
+[
+  {
+    "title": "Unpaid Intern",
+    "level": 0,
+    "price": 0
+  },
+  {
+    "title": "Paid Patch Assistant",
+    "level": 1,
+    "price": 100
+  },
+  {
+    "title": "Diplocyclos Daytrader",
+    "level": 2,
+    "price": 200
+  },
+  {
+    "title": "Butternut Broker",
+    "level": 3,
+    "price": 300
+  },
+  {
+    "title": "Equity Forecast Farmer",
+    "level": 4,
+    "price": 400
+  },
+  {
+    "title": "Melon Market Modeler",
+    "level": 5,
+    "price": 500
+  },
+  {
+    "title": "Rind Risk Analyst",
+    "level": 6,
+    "price": 600
+  },
+  {
+    "title": "Watermelon Wealth Speculator",
+    "level": 7,
+    "price": 700
+  },
+  {
+    "title": "Vineyard Visionary",
+    "level": 8,
+    "price": 800
+  },
+  {
+    "title": "Gourd Gamble Guide",
+    "level": 9,
+    "price": 900
+  },
+  {
+    "title": "Cantaloupe Chaos Theorist",
+    "level": 10,
+    "price": 1000
+  },
+  {
+    "title": "Honeydew Hedgefund Manager",
+    "level": 11,
+    "price": 1100
+  },
+  {
+    "title": "Senior Squash Strategist",
+    "level": 12,
+    "price": 1200
+  },
+  {
+    "title": "Chief Cucurbit Capital Creator",
+    "level": 13,
+    "price": 1300
+  },
+  {
+    "title": "Pumpkin Portfolio Picasso",
+    "level": 14,
+    "price": 1400
+  },
+  {
+    "title": "American Psycho",
+    "level": 15,
+    "price": 1500
+  }
+]
+
