@@ -227,10 +227,3 @@ Scheduled background tasks are handled using **Celery**:
   - If a user's JWT token expires or is invalid, they are redirected to the login page.
 
 ---
-
-## Future Improvements
-
-- **Unit Tests**: Add comprehensive unit and integration tests for backend services and frontend components.
-- **Rate Limiting**: Implement rate limiting on API routes to prevent abuse.
-- **Enhanced UI**: Improve the user interface with additional real-time data and visual feedback for stock transactions.
-- **Scalability**: Refactor the backend to support horizontal scaling, particularly for handling large datasets and high user traffic.
