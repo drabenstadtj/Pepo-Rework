@@ -1,4 +1,4 @@
-# Pepo Exchange - Developer Documentation
+# Pepo Exchange 
 
 ## Overview
 
